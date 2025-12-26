@@ -4,19 +4,19 @@ import { Eye, Ban, TrendingUp, Users } from "lucide-react";
 const values = [
   {
     icon: Eye,
-    text: "Make execution health visible",
+    text: "See what's still open",
   },
   {
     icon: Ban,
-    text: "Stop blockers repeating across meetings",
+    text: "Catch recurring blockers",
   },
   {
     icon: TrendingUp,
-    text: "Turn standups, sprint reviews, and weekly syncs into actual progress",
+    text: "Know what actually moved",
   },
   {
     icon: Users,
-    text: "Create natural accountability — without blame",
+    text: "Hold context between meetings",
   },
 ];
 
@@ -58,7 +58,7 @@ const ValuePitchSection = () => {
             transition={{ delay: 0.5, duration: 0.6 }}
             className="text-center text-muted-foreground mt-12 text-lg italic"
           >
-            Meetings shouldn't just sound productive. They should help teams move.
+            Like a chief of staff that never forgets.
           </motion.p>
         </motion.div>
       </div>
