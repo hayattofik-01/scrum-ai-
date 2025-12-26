@@ -1,8 +1,10 @@
 import Navbar from "@/components/landing/Navbar";
 import HeroSection from "@/components/landing/HeroSection";
-import ValuePitchSection from "@/components/landing/ValuePitchSection";
-import ProblemSection from "@/components/landing/ProblemSection";
+import PainSection from "@/components/landing/PainSection";
+import StakesSection from "@/components/landing/StakesSection";
 import SolutionSection from "@/components/landing/SolutionSection";
+import DifferentiationSection from "@/components/landing/DifferentiationSection";
+import BenefitsSection from "@/components/landing/BenefitsSection";
 import AudienceSection from "@/components/landing/AudienceSection";
 import CTASection from "@/components/landing/CTASection";
 import Footer from "@/components/landing/Footer";
@@ -12,9 +14,11 @@ const Index = () => {
     <main className="min-h-screen bg-background">
       <Navbar />
       <HeroSection />
-      <ValuePitchSection />
-      <ProblemSection />
+      <PainSection />
+      <StakesSection />
       <SolutionSection />
+      <DifferentiationSection />
+      <BenefitsSection />
       <AudienceSection />
       <CTASection />
       <Footer />

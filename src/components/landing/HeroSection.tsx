@@ -33,16 +33,17 @@ const HeroSection = () => {
           >
             <Sparkles className="w-4 h-4 text-primary" />
             <span className="text-sm font-medium text-muted-foreground">
-              AI Copilot for Leaders
+              AI Copilot for Recurring Meetings
             </span>
           </motion.div>
 
           {/* Main headline */}
-          <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight mb-6">
-            <span className="text-foreground">Your meetings.</span>
-            <br />
-            <span className="text-gradient">Remembered.</span>
+          <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight mb-2">
+            <span className="text-foreground">ScrumAI</span>
           </h1>
+          <p className="font-display text-3xl sm:text-4xl lg:text-5xl font-semibold text-gradient mb-8">
+            From meeting… to movement.
+          </p>
 
           {/* Subheadline */}
           <motion.p
@@ -51,7 +52,7 @@ const HeroSection = () => {
             transition={{ delay: 0.4, duration: 0.6 }}
             className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed"
           >
-            ScrumAI listens to your meetings, remembers everything, and tells you what still needs to get done.
+            Your team works hard. But execution still slips, decisions linger, and the same blockers keep coming back. ScrumAI makes execution visible between meetings — so work actually moves forward.
           </motion.p>
 
           {/* CTA Buttons */}
@@ -62,11 +63,11 @@ const HeroSection = () => {
             className="flex flex-col sm:flex-row items-center justify-center gap-4"
           >
             <Button variant="hero" size="xl">
-              Join Waitlist
+              Apply for Early Pilot
               <ArrowRight className="w-5 h-5" />
             </Button>
             <Button variant="hero-outline" size="xl">
-              Apply for Early Pilot
+              Join Waitlist
             </Button>
           </motion.div>
         </motion.div>
