@@ -57,7 +57,7 @@ const BenefitsSection = () => {
               This isn't about pressure.
             </p>
             <p className="text-xl font-display font-semibold text-foreground">
-              It's about <span className="text-gradient">clarity and momentum.</span>
+              It's about <span className="text-gradient">clarity, discipline, and momentum.</span>
             </p>
           </motion.div>
         </div>

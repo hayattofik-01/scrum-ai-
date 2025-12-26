@@ -33,7 +33,7 @@ const HeroSection = () => {
           >
             <Sparkles className="w-4 h-4 text-primary" />
             <span className="text-sm font-medium text-muted-foreground">
-              AI Copilot for Recurring Meetings
+              Execution Intelligence for Recurring Meetings
             </span>
           </motion.div>
 

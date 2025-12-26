@@ -5,7 +5,7 @@ const painPoints = [
   { icon: RotateCcw, text: "The same blockers return week after week" },
   { icon: HelpCircle, text: "Decisions remain open" },
   { icon: Clock, text: "Timelines stretch quietly" },
-  { icon: Activity, text: "Work 'feels' productive but doesn't move" },
+  { icon: Activity, text: "Work sounds productive, but doesn't truly move" },
 ];
 
 const PainSection = () => {
