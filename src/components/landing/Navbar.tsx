@@ -1,5 +1,7 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
+import WaitlistDialog from "./WaitlistDialog";
+import ContactDialog from "./ContactDialog";
 
 const Navbar = () => {
   return (
@@ -17,12 +19,16 @@ const Navbar = () => {
             </span>
           </div>
           <div className="flex items-center gap-3">
-            <Button variant="ghost" size="sm" className="hidden sm:inline-flex">
-              Learn More
-            </Button>
-            <Button variant="default" size="sm">
-              Join Waitlist
-            </Button>
+            <ContactDialog>
+              <Button variant="ghost" size="sm" className="hidden sm:inline-flex">
+                Learn More
+              </Button>
+            </ContactDialog>
+            <WaitlistDialog>
+              <Button variant="default" size="sm">
+                Join Waitlist
+              </Button>
+            </WaitlistDialog>
           </div>
         </div>
       </div>
