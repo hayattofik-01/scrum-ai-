@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Mail, Zap } from "lucide-react";
@@ -6,9 +5,6 @@ import WaitlistDialog from "./WaitlistDialog";
 import PilotApplicationDialog from "./PilotApplicationDialog";
 
 const CTASection = () => {
-  const [waitlistOpen, setWaitlistOpen] = useState(false);
-  const [pilotOpen, setPilotOpen] = useState(false);
-
   return (
     <section className="py-24 relative overflow-hidden">
       {/* Background glow */}
@@ -53,10 +49,12 @@ const CTASection = () => {
               <p className="text-muted-foreground mb-4">
                 Use ScrumAI with your real recurring meetings.
               </p>
-              <Button variant="hero" size="lg" className="w-full" onClick={() => setPilotOpen(true)}>
-                Apply for Pilot
-                <ArrowRight className="w-4 h-4" />
-              </Button>
+              <PilotApplicationDialog>
+                <Button variant="hero" size="lg" className="w-full">
+                  Apply for Pilot
+                  <ArrowRight className="w-4 h-4" />
+                </Button>
+              </PilotApplicationDialog>
             </div>
 
             {/* Waitlist Card */}
@@ -70,10 +68,12 @@ const CTASection = () => {
               <p className="text-muted-foreground mb-4">
                 Get launch updates and early access.
               </p>
-              <Button variant="hero-outline" size="lg" className="w-full" onClick={() => setWaitlistOpen(true)}>
-                Join Waitlist
-                <ArrowRight className="w-4 h-4" />
-              </Button>
+              <WaitlistDialog>
+                <Button variant="hero-outline" size="lg" className="w-full">
+                  Join Waitlist
+                  <ArrowRight className="w-4 h-4" />
+                </Button>
+              </WaitlistDialog>
             </div>
           </motion.div>
 
@@ -88,9 +88,6 @@ const CTASection = () => {
           </motion.p>
         </div>
       </div>
-
-      <WaitlistDialog open={waitlistOpen} onOpenChange={setWaitlistOpen} />
-      <PilotApplicationDialog open={pilotOpen} onOpenChange={setPilotOpen} />
     </section>
   );
 };

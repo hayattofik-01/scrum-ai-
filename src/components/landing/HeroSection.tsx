@@ -1,6 +1,8 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Sparkles } from "lucide-react";
+import PilotApplicationDialog from "./PilotApplicationDialog";
+import WaitlistDialog from "./WaitlistDialog";
 
 const HeroSection = () => {
   return (
@@ -62,13 +64,17 @@ const HeroSection = () => {
             transition={{ delay: 0.6, duration: 0.5 }}
             className="flex flex-col sm:flex-row items-center justify-center gap-4"
           >
-            <Button variant="hero" size="xl">
-              Apply for Early Pilot
-              <ArrowRight className="w-5 h-5" />
-            </Button>
-            <Button variant="hero-outline" size="xl">
-              Join Waitlist
-            </Button>
+            <PilotApplicationDialog>
+              <Button variant="hero" size="xl">
+                Apply for Early Pilot
+                <ArrowRight className="w-5 h-5" />
+              </Button>
+            </PilotApplicationDialog>
+            <WaitlistDialog>
+              <Button variant="hero-outline" size="xl">
+                Join Waitlist
+              </Button>
+            </WaitlistDialog>
           </motion.div>
         </motion.div>
       </div>

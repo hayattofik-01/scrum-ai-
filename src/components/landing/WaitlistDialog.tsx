@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogTrigger } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -8,11 +8,11 @@ import { toast } from "@/hooks/use-toast";
 import { Loader2, Mail } from "lucide-react";
 
 interface WaitlistDialogProps {
-  open: boolean;
-  onOpenChange: (open: boolean) => void;
+  children: React.ReactNode;
 }
 
-const WaitlistDialog = ({ open, onOpenChange }: WaitlistDialogProps) => {
+const WaitlistDialog = ({ children }: WaitlistDialogProps) => {
+  const [open, setOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
@@ -47,7 +47,7 @@ const WaitlistDialog = ({ open, onOpenChange }: WaitlistDialogProps) => {
       });
 
       setFormData({ email: "", name: "", company: "" });
-      onOpenChange(false);
+      setOpen(false);
     } catch (error: any) {
       toast({
         title: "Something went wrong",
@@ -60,7 +60,8 @@ const WaitlistDialog = ({ open, onOpenChange }: WaitlistDialogProps) => {
   };
 
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
           <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4">

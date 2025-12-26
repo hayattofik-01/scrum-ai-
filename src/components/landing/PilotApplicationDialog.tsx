@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogTrigger } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -10,11 +10,11 @@ import { toast } from "@/hooks/use-toast";
 import { Loader2, Zap } from "lucide-react";
 
 interface PilotApplicationDialogProps {
-  open: boolean;
-  onOpenChange: (open: boolean) => void;
+  children: React.ReactNode;
 }
 
-const PilotApplicationDialog = ({ open, onOpenChange }: PilotApplicationDialogProps) => {
+const PilotApplicationDialog = ({ children }: PilotApplicationDialogProps) => {
+  const [open, setOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
@@ -52,7 +52,7 @@ const PilotApplicationDialog = ({ open, onOpenChange }: PilotApplicationDialogPr
       });
 
       setFormData({ email: "", name: "", company: "", team_size: "", meeting_types: "", message: "" });
-      onOpenChange(false);
+      setOpen(false);
     } catch (error: any) {
       toast({
         title: "Something went wrong",
@@ -65,7 +65,8 @@ const PilotApplicationDialog = ({ open, onOpenChange }: PilotApplicationDialogPr
   };
 
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className="sm:max-w-lg max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4">
