@@ -1,4 +1,7 @@
 import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogTrigger } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -9,6 +12,17 @@ import { supabase } from "@/lib/supabase";
 import { toast } from "@/hooks/use-toast";
 import { Loader2, Zap } from "lucide-react";
 
+const pilotSchema = z.object({
+  email: z.string().email("Please enter a valid email address."),
+  name: z.string().min(2, "Name must be at least 2 characters.").max(100, "Name is too long."),
+  company: z.string().min(2, "Company name must be at least 2 characters.").max(100, "Company name is too long."),
+  team_size: z.string().optional(),
+  meeting_types: z.string().max(200, "Please keep meeting types brief.").optional().or(z.literal("")),
+  message: z.string().max(1000, "Message is too long.").optional().or(z.literal("")),
+});
+
+type PilotValues = z.infer<typeof pilotSchema>;
+
 interface PilotApplicationDialogProps {
   children: React.ReactNode;
 }
@@ -16,33 +30,26 @@ interface PilotApplicationDialogProps {
 const PilotApplicationDialog = ({ children }: PilotApplicationDialogProps) => {
   const [open, setOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [formData, setFormData] = useState({
-    email: "",
-    name: "",
-    company: "",
-    team_size: "",
-    meeting_types: "",
-    message: "",
+
+  const form = useForm<PilotValues>({
+    resolver: zodResolver(pilotSchema),
+    defaultValues: {
+      email: "",
+      name: "",
+      company: "",
+      team_size: "",
+      meeting_types: "",
+      message: "",
+    },
   });
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    if (!formData.email || !formData.name || !formData.company) {
-      toast({
-        title: "Required fields missing",
-        description: "Please fill in all required fields.",
-        variant: "destructive",
-      });
-      return;
-    }
-
+  const onSubmit = async (data: PilotValues) => {
     setIsLoading(true);
 
     try {
       const { error } = await supabase
         .from("pilot_applications")
-        .insert([formData]);
+        .insert([data]);
 
       if (error) throw error;
 
@@ -51,7 +58,7 @@ const PilotApplicationDialog = ({ children }: PilotApplicationDialogProps) => {
         description: "We'll review your application and get back to you soon.",
       });
 
-      setFormData({ email: "", name: "", company: "", team_size: "", meeting_types: "", message: "" });
+      form.reset();
       setOpen(false);
     } catch (error: any) {
       toast({
@@ -78,17 +85,18 @@ const PilotApplicationDialog = ({ children }: PilotApplicationDialogProps) => {
           </DialogDescription>
         </DialogHeader>
 
-        <form onSubmit={handleSubmit} className="space-y-4 mt-4">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 mt-4">
           <div className="space-y-2">
             <Label htmlFor="pilot-email">Email *</Label>
             <Input
               id="pilot-email"
               type="email"
               placeholder="you@company.com"
-              value={formData.email}
-              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-              required
+              {...form.register("email")}
             />
+            {form.formState.errors.email && (
+              <p className="text-sm text-destructive">{form.formState.errors.email.message}</p>
+            )}
           </div>
 
           <div className="space-y-2">
@@ -96,10 +104,11 @@ const PilotApplicationDialog = ({ children }: PilotApplicationDialogProps) => {
             <Input
               id="pilot-name"
               placeholder="Your name"
-              value={formData.name}
-              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-              required
+              {...form.register("name")}
             />
+            {form.formState.errors.name && (
+              <p className="text-sm text-destructive">{form.formState.errors.name.message}</p>
+            )}
           </div>
 
           <div className="space-y-2">
@@ -107,17 +116,18 @@ const PilotApplicationDialog = ({ children }: PilotApplicationDialogProps) => {
             <Input
               id="pilot-company"
               placeholder="Your company"
-              value={formData.company}
-              onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-              required
+              {...form.register("company")}
             />
+            {form.formState.errors.company && (
+              <p className="text-sm text-destructive">{form.formState.errors.company.message}</p>
+            )}
           </div>
 
           <div className="space-y-2">
             <Label htmlFor="pilot-team-size">Team Size</Label>
             <Select
-              value={formData.team_size}
-              onValueChange={(value) => setFormData({ ...formData, team_size: value })}
+              onValueChange={(value) => form.setValue("team_size", value)}
+              defaultValue={form.getValues("team_size")}
             >
               <SelectTrigger id="pilot-team-size">
                 <SelectValue placeholder="Select team size" />
@@ -136,9 +146,11 @@ const PilotApplicationDialog = ({ children }: PilotApplicationDialogProps) => {
             <Input
               id="pilot-meeting-types"
               placeholder="e.g., Daily standups, Sprint planning, Leadership syncs"
-              value={formData.meeting_types}
-              onChange={(e) => setFormData({ ...formData, meeting_types: e.target.value })}
+              {...form.register("meeting_types")}
             />
+            {form.formState.errors.meeting_types && (
+              <p className="text-sm text-destructive">{form.formState.errors.meeting_types.message}</p>
+            )}
           </div>
 
           <div className="space-y-2">
@@ -146,16 +158,18 @@ const PilotApplicationDialog = ({ children }: PilotApplicationDialogProps) => {
             <Textarea
               id="pilot-message"
               placeholder="Tell us about your team's biggest meeting challenges..."
-              value={formData.message}
-              onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+              {...form.register("message")}
               rows={3}
             />
+            {form.formState.errors.message && (
+              <p className="text-sm text-destructive">{form.formState.errors.message.message}</p>
+            )}
           </div>
 
           <Button type="submit" variant="hero" size="lg" className="w-full" disabled={isLoading}>
             {isLoading ? (
               <>
-                <Loader2 className="w-4 h-4 animate-spin" />
+                <Loader2 className="w-4 h-4 animate-spin mr-2" />
                 Submitting...
               </>
             ) : (

@@ -6,7 +6,7 @@ import WaitlistDialog from "./WaitlistDialog";
 
 const HeroSection = () => {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-hero">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-hero pt-32">
       {/* Background glow effects */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-gradient-glow animate-pulse-glow" />
@@ -43,7 +43,7 @@ const HeroSection = () => {
           <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight mb-2">
             <span className="text-foreground">ScrumAI</span>
           </h1>
-          <p className="font-display text-3xl sm:text-4xl lg:text-5xl font-semibold text-gradient mb-8">
+          <p className="font-display text-3xl sm:text-4xl lg:text-5xl font-semibold text-gradient mb-8 py-4 pb-6 leading-normal">
             From meeting… to movement.
           </p>
 

@@ -1,4 +1,7 @@
 import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogTrigger } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -7,6 +10,14 @@ import { supabase } from "@/lib/supabase";
 import { toast } from "@/hooks/use-toast";
 import { Loader2, Mail } from "lucide-react";
 
+const waitlistSchema = z.object({
+  email: z.string().email("Please enter a valid email address."),
+  name: z.string().min(2, "Name must be at least 2 characters.").max(50, "Name is too long.").optional().or(z.literal("")),
+  company: z.string().max(50, "Company name is too long.").optional().or(z.literal("")),
+});
+
+type WaitlistValues = z.infer<typeof waitlistSchema>;
+
 interface WaitlistDialogProps {
   children: React.ReactNode;
 }
@@ -14,30 +25,23 @@ interface WaitlistDialogProps {
 const WaitlistDialog = ({ children }: WaitlistDialogProps) => {
   const [open, setOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [formData, setFormData] = useState({
-    email: "",
-    name: "",
-    company: "",
+
+  const form = useForm<WaitlistValues>({
+    resolver: zodResolver(waitlistSchema),
+    defaultValues: {
+      email: "",
+      name: "",
+      company: "",
+    },
   });
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    if (!formData.email) {
-      toast({
-        title: "Email required",
-        description: "Please enter your email address.",
-        variant: "destructive",
-      });
-      return;
-    }
-
+  const onSubmit = async (data: WaitlistValues) => {
     setIsLoading(true);
 
     try {
       const { error } = await supabase
         .from("waitlist_submissions")
-        .insert([formData]);
+        .insert([data]);
 
       if (error) throw error;
 
@@ -46,7 +50,7 @@ const WaitlistDialog = ({ children }: WaitlistDialogProps) => {
         description: "We'll notify you when ScrumAI launches.",
       });
 
-      setFormData({ email: "", name: "", company: "" });
+      form.reset();
       setOpen(false);
     } catch (error: any) {
       toast({
@@ -73,17 +77,18 @@ const WaitlistDialog = ({ children }: WaitlistDialogProps) => {
           </DialogDescription>
         </DialogHeader>
 
-        <form onSubmit={handleSubmit} className="space-y-4 mt-4">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 mt-4">
           <div className="space-y-2">
             <Label htmlFor="waitlist-email">Email *</Label>
             <Input
               id="waitlist-email"
               type="email"
               placeholder="you@company.com"
-              value={formData.email}
-              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-              required
+              {...form.register("email")}
             />
+            {form.formState.errors.email && (
+              <p className="text-sm text-destructive">{form.formState.errors.email.message}</p>
+            )}
           </div>
 
           <div className="space-y-2">
@@ -91,9 +96,11 @@ const WaitlistDialog = ({ children }: WaitlistDialogProps) => {
             <Input
               id="waitlist-name"
               placeholder="Your name"
-              value={formData.name}
-              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+              {...form.register("name")}
             />
+            {form.formState.errors.name && (
+              <p className="text-sm text-destructive">{form.formState.errors.name.message}</p>
+            )}
           </div>
 
           <div className="space-y-2">
@@ -101,15 +108,17 @@ const WaitlistDialog = ({ children }: WaitlistDialogProps) => {
             <Input
               id="waitlist-company"
               placeholder="Your company"
-              value={formData.company}
-              onChange={(e) => setFormData({ ...formData, company: e.target.value })}
+              {...form.register("company")}
             />
+            {form.formState.errors.company && (
+              <p className="text-sm text-destructive">{form.formState.errors.company.message}</p>
+            )}
           </div>
 
           <Button type="submit" variant="hero" size="lg" className="w-full" disabled={isLoading}>
             {isLoading ? (
               <>
-                <Loader2 className="w-4 h-4 animate-spin" />
+                <Loader2 className="w-4 h-4 animate-spin mr-2" />
                 Joining...
               </>
             ) : (

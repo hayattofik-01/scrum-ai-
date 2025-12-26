@@ -14,9 +14,7 @@ const Navbar = () => {
       <div className="container px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between p-3 rounded-2xl glass">
           <div className="flex items-center gap-2">
-            <span className="font-display text-xl font-bold text-gradient">
-              ScrumAI
-            </span>
+            <img src="/logo.png" alt="ScrumAI Logo" className="h-24 w-auto" />
           </div>
           <div className="flex items-center gap-3">
             <ContactDialog>

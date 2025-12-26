@@ -12,9 +12,7 @@ const Footer = () => {
           className="flex flex-col sm:flex-row items-center justify-between gap-4"
         >
           <div className="flex items-center gap-2">
-            <span className="font-display text-xl font-bold text-gradient">
-              ScrumAI
-            </span>
+            <img src="/logo.png" alt="ScrumAI Logo" className="h-8 w-auto" />
           </div>
           <p className="text-sm text-muted-foreground">
             © {new Date().getFullYear()} ScrumAI. All rights reserved.
