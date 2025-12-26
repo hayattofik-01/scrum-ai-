@@ -33,15 +33,15 @@ const HeroSection = () => {
           >
             <Sparkles className="w-4 h-4 text-primary" />
             <span className="text-sm font-medium text-muted-foreground">
-              Execution Intelligence for Teams
+              AI Copilot for Leaders
             </span>
           </motion.div>
 
           {/* Main headline */}
           <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight mb-6">
-            <span className="text-foreground">From meeting…</span>
+            <span className="text-foreground">Your meetings.</span>
             <br />
-            <span className="text-gradient">to movement.</span>
+            <span className="text-gradient">Remembered.</span>
           </h1>
 
           {/* Subheadline */}
@@ -49,18 +49,9 @@ const HeroSection = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.4, duration: 0.6 }}
-            className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto mb-4 leading-relaxed"
+            className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed"
           >
-            Teams don't fail because they don't work hard. They fail because important decisions linger, blockers quietly roll forward, and recurring meetings feel productive without actually moving work ahead.
-          </motion.p>
-
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.5, duration: 0.6 }}
-            className="text-base sm:text-lg text-foreground/80 max-w-2xl mx-auto mb-10 font-medium"
-          >
-            ScrumAI helps teams see what didn't close, keeps execution visible between meetings, and turns recurring discussions into real forward motion.
+            ScrumAI listens to your meetings, remembers everything, and tells you what still needs to get done.
           </motion.p>
 
           {/* CTA Buttons */}

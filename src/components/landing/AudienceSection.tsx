@@ -49,15 +49,6 @@ const AudienceSection = () => {
             ))}
           </motion.div>
 
-          <motion.p
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.5, duration: 0.6 }}
-            className="mt-12 text-lg text-muted-foreground"
-          >
-            If recurring meetings keep happening but real movement feels slow — ScrumAI is for you.
-          </motion.p>
         </div>
       </div>
 

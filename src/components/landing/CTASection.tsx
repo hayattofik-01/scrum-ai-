@@ -19,11 +19,10 @@ const CTASection = () => {
             transition={{ duration: 0.6 }}
           >
             <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-6">
-              Be Part of the First Teams to Use{" "}
-              <span className="text-gradient">ScrumAI</span>
+              Get Early Access
             </h2>
             <p className="text-lg text-muted-foreground mb-12">
-              We are currently onboarding early teams who want to help shape the future of execution intelligence.
+              Join the first teams shaping ScrumAI.
             </p>
           </motion.div>
 
@@ -60,10 +59,10 @@ const CTASection = () => {
                 <Zap className="w-6 h-6 text-primary" />
               </div>
               <h3 className="font-display text-xl font-semibold text-foreground mb-2">
-                Apply for Pilot Access
+                Pilot Access
               </h3>
               <p className="text-muted-foreground mb-4">
-                Use ScrumAI with your real recurring meetings and help us build something genuinely useful.
+                Use ScrumAI with your real meetings.
               </p>
               <Button variant="hero-outline" size="lg" className="w-full">
                 Apply for Pilot
@@ -71,16 +70,6 @@ const CTASection = () => {
               </Button>
             </div>
           </motion.div>
-
-          <motion.p
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.4, duration: 0.5 }}
-            className="text-sm text-muted-foreground"
-          >
-            Limited pilot spots — we're prioritizing teams with recurring standups, sprint cycles, and leadership syncs.
-          </motion.p>
         </div>
       </div>
     </section>
