@@ -6,14 +6,12 @@ const audiences = [
   { icon: Package, label: "Product Teams" },
   { icon: Users, label: "Tech Leads" },
   { icon: Target, label: "Scrum Masters" },
-  { icon: Rocket, label: "Fast-moving startups" },
+  { icon: Rocket, label: "Startups & growing companies" },
 ];
 
 const AudienceSection = () => {
   return (
-    <section className="py-24 relative overflow-hidden">
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
-      
+    <section className="py-24 relative overflow-hidden bg-secondary/30">
       <div className="container px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto text-center">
           <motion.div
@@ -23,8 +21,11 @@ const AudienceSection = () => {
             transition={{ duration: 0.6 }}
           >
             <h2 className="font-display text-3xl sm:text-4xl font-bold text-foreground mb-4">
-              Built for teams who care about delivery
+              Built for teams where delivery matters
             </h2>
+            <p className="text-lg text-muted-foreground mb-8">
+              ScrumAI supports:
+            </p>
           </motion.div>
 
           <motion.div
@@ -32,7 +33,7 @@ const AudienceSection = () => {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2, duration: 0.6 }}
-            className="flex flex-wrap justify-center gap-4 mt-12"
+            className="flex flex-wrap justify-center gap-4 mb-12"
           >
             {audiences.map((audience, index) => (
               <motion.div
@@ -41,7 +42,7 @@ const AudienceSection = () => {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.1 * index, duration: 0.4 }}
-                className="flex items-center gap-3 px-5 py-3 rounded-full bg-secondary/80 border border-border/50 hover:border-primary/30 transition-all duration-300"
+                className="flex items-center gap-3 px-5 py-3 rounded-full bg-background border border-border/50 hover:border-primary/30 transition-all duration-300"
               >
                 <audience.icon className="w-5 h-5 text-primary" />
                 <span className="text-foreground font-medium">{audience.label}</span>
@@ -49,10 +50,17 @@ const AudienceSection = () => {
             ))}
           </motion.div>
 
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.4, duration: 0.5 }}
+            className="text-lg text-muted-foreground"
+          >
+            If meetings happen often but movement feels slow — <span className="text-foreground font-semibold">ScrumAI is for you.</span>
+          </motion.p>
         </div>
       </div>
-
-      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
     </section>
   );
 };
