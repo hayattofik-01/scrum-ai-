@@ -52,13 +52,16 @@ const DifferentiationSection = () => {
             >
               <Shield className="w-10 h-10 text-primary mb-4" />
               <p className="text-lg text-foreground mb-4">
-                ScrumAI is the <span className="text-gradient font-semibold">execution enforcement layer</span> your team has been missing.
+                ScrumAI is the <span className="text-gradient font-semibold">execution accountability layer</span> your team has been missing.
               </p>
               <p className="text-muted-foreground">
                 It doesn't help you talk better.
               </p>
               <p className="text-xl font-display font-semibold text-foreground mt-2">
                 It helps you <span className="text-gradient">close better.</span>
+              </p>
+              <p className="text-sm text-muted-foreground mt-4 italic">
+                Built for teams who care deeply about delivery discipline.
               </p>
             </motion.div>
           </div>
