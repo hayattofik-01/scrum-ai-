@@ -1,23 +1,13 @@
-import { Suspense, lazy } from "react";
 import Navbar from "@/components/landing/Navbar";
 import HeroSection from "@/components/landing/HeroSection";
 import PainSection from "@/components/landing/PainSection";
-
-// Lazy load below-the-fold sections
-const StakesSection = lazy(() => import("@/components/landing/StakesSection"));
-const SolutionSection = lazy(() => import("@/components/landing/SolutionSection"));
-const DifferentiationSection = lazy(() => import("@/components/landing/DifferentiationSection"));
-const BenefitsSection = lazy(() => import("@/components/landing/BenefitsSection"));
-const AudienceSection = lazy(() => import("@/components/landing/AudienceSection"));
-const CTASection = lazy(() => import("@/components/landing/CTASection"));
-const Footer = lazy(() => import("@/components/landing/Footer"));
-
-// Minimal section loader
-const SectionLoader = () => (
-  <div className="h-40 flex items-center justify-center opacity-50">
-    <div className="w-6 h-6 border-2 border-primary border-t-transparent rounded-full animate-spin"></div>
-  </div>
-);
+import StakesSection from "@/components/landing/StakesSection";
+import SolutionSection from "@/components/landing/SolutionSection";
+import DifferentiationSection from "@/components/landing/DifferentiationSection";
+import BenefitsSection from "@/components/landing/BenefitsSection";
+import AudienceSection from "@/components/landing/AudienceSection";
+import CTASection from "@/components/landing/CTASection";
+import Footer from "@/components/landing/Footer";
 
 const Index = () => {
   return (
@@ -25,15 +15,13 @@ const Index = () => {
       <Navbar />
       <HeroSection />
       <PainSection />
-      <Suspense fallback={<SectionLoader />}>
-        <StakesSection />
-        <SolutionSection />
-        <DifferentiationSection />
-        <BenefitsSection />
-        <AudienceSection />
-        <CTASection />
-        <Footer />
-      </Suspense>
+      <StakesSection />
+      <SolutionSection />
+      <DifferentiationSection />
+      <BenefitsSection />
+      <AudienceSection />
+      <CTASection />
+      <Footer />
     </main>
   );
 };
