@@ -1,75 +1,102 @@
-# ScrumAI: A Distributed System for AI-Assisted Scrum Management
+# ScrumAI: Distributed AI-Assisted Scrum Management
 
-## 1. Introduction + Idea + Originality
-**ScrumAI** is a distributed system designed to revolutionize daily standups and sprint tracking. Traditional scrum tools rely on manual updates which are often forgotten or lacked depth. 
+## 1. Executive Summary
+**ScrumAI** is a next-generation distributed system designed to revolutionize how engineering teams handle daily standups and sprint velocity. By transforming raw meeting transcripts into structured, actionable data through advanced AI analysis, ScrumAI eliminates the manual overhead of updating trackers and identifies blockers before they derail a sprint.
 
-**The Idea**: Users submit their daily standups (transcripts). The system processes these using Large Language Models (GPT-4o, Gemini, or etc.) to automatically extract:
-- **Completed Tasks**: What has been achieved.
-- **In-Progress & Planned Tasks**: Current and future work.
-- **Blockers**: Identifying dependencies or issues that stop progress.
-- **AI Insights**: Providing high-level overview of team health and sentiment.
+ScrumAI is built as a highly scalable, multi-service platform using **Go**, **React**, and a distributed message-driven architecture.
 
-**Originality**: ScrumAI combines a **clean architecture** with **advanced AI parsing**. It transforms raw meeting transcripts into structured actionable data synchronously upon submission, ensuring immediate visibility into team progress while maintaining a scalable distributed backend.
+---
 
-## 2. Architecture and Design
-The system follows **Clean Architecture** and is composed of several independent services.
+## 2. Core Idea and Originality
+The "Daily Standup" is often the most important yet least documented part of the Scrum process. 
 
-### Architecture Description
-- **API Server**: Handles authentication, standup submission, and report retrieval.
-- **Background Worker**: Processes heavy AI analysis tasks asynchronously.
-- **Message Broker (RabbitMQ)**: Decouples the API from the Worker, ensuring the API stays responsive.
-- **Databases**: MongoDB for persistent document storage and Redis for high-speed session management.
+**The Innovation**: ScrumAI captures raw human communication (text or file transcripts) and uses a custom-tuned AI pipeline to extract:
+- **Completed Work**: Validation of achievements.
+- **Planned Tasks**: Future commitments mapped to rolling tasks.
+- **Instant Blocker Detection**: Sentiment and keyword analysis to highlight dependencies.
 
-### Diagram
+**Originality**: Unlike generic AI tools, ScrumAI is a purpose-built **distributed system**. It handles high-concurrency standup submissions synchronously while maintaining a background event-driven architecture for deep analysis, report aggregation, and organizational management across multiple teams.
+
+---
+
+## 3. Visual Product Overview
+
+### 3.1 Live Dashboard
+The Overview dashboard provides a real-time "Team Pulse". High-level metrics for standups, active blockers, and rolling tasks are updated via an automated 30-second polling engine, ensuring zero staleness.
+
+![Dashboard Overview](/Users/nat/.gemini/antigravity/brain/eb337c1b-351c-4000-99bd-0565265fe594/scrumai_dashboard_mockup_png_1767800033906.png)
+
+### 3.2 AI-Powered Standup Submission
+Users can submit transcripts manually or via file upload. The system provides **Immediate Synchronous Feedback**, showing exactly what the AI extracted from the transcript within seconds.
+
+![Standup Submission](/Users/nat/.gemini/antigravity/brain/eb337c1b-351c-4000-99bd-0565265fe594/scrumai_standups_mockup_png_1767800051336.png)
+
+### 3.3 Dynamic AI Insights
+The Reports module identifies "Rolling Tasks"—complex items that persist over multiple standups—and generates high-level management summaries of team health and sentiment.
+
+![AI Insights](/Users/nat/.gemini/antigravity/brain/eb337c1b-351c-4000-99bd-0565265fe594/scrumai_reports_mockup_png_1767800077020.png)
+
+---
+
+## 4. Technical Architecture
+ScrumAI follows **Clean Architecture (Hexagonal)** principles to ensure high maintainability and testability.
+
+### 4.1 Distributed Components
+- **API Gateway (Go/Gin)**: Orchestrates authentication, session management, and primary standup ingestion.
+- **Background Worker (Go)**: Consumes analysis events from RabbitMQ to perform complex cross-standup tracking.
+- **Message Broker (RabbitMQ)**: Provides the distributed backbone for asynchronous service communication.
+- **Data Persistence**: 
+    - **MongoDB**: Permanent storage for standups, teams, and analysis.
+    - **Redis**: High-speed session store and security layer for JWT invalidation.
+
+### 4.2 System Data Flow
 ```mermaid
 graph TD
-    Client[Web/Mobile Client] -- HTTP REST --> API[Go API Server]
-    API -- Read/Write --> Mongo[(MongoDB)]
-    API -- Session/Cache --> Redis[(Redis)]
-    API -- AI Analysis --> LLM[LLM Provider]
-    API -- Publish Backup Event --> Rabbit[RabbitMQ]
-    Rabbit -- Consume Event --> Worker[Go Background Worker]
-    Worker -- Deep Analysis/Reports --> Mongo
+    User([Developer/Admin]) -->|HTTPS| API[Go API Server]
+    API -->|Auth| Redis[(Redis Session Store)]
+    API <-->|Sync Analysis| AI[LLM Provider / LLM7]
+    API -->|Persist| Mongo[(MongoDB)]
+    API -->|Publish Event| Rabbit[RabbitMQ Cluster]
+    Rabbit -->|Process| Worker[Go Background Worker]
+    Worker -->|Update Reports| Mongo
 ```
 
-## 3. Technologies Used
-- **Backend**: Go (Golang) for high performance and concurrency.
-- **API Framework**: Gin Gonic.
-- **Database**: MongoDB (NoSQL) for flexible schema.
-- **Caching/Sessions**: Redis.
-- **Messaging**: RabbitMQ (AMQP).
-- **AI**: OpenAI GPT-4o.
-- **Security**: JWT (JSON Web Tokens) + Bcrypt.
-- **Containerization**: Docker & Docker Compose.
+---
 
-## 4. API Design
-The API follows RESTful principles and is versioned under `/api/v1`. Key modules include:
-- **Auth**: Secure session management.
-- **Standups**: CRUD operations for daily updates.
-- **Reports**: AI-generated insights and blockers.
+## 5. Distributed Systems Concepts Implemented
 
-## 5. Distributed Systems Concepts
-| Course Topic | Project Implementation |
+| Concept | Implementation in ScrumAI |
 | :--- | :--- |
-| **Distributed Systems** | Multi-node architecture (API, Worker, DBs). |
-| **Client-Server** | RESTful interaction between clients and Go API. |
-| **Layered Architecture** | Clean Architecture (Domain, App, Infra, Interface). |
-| **Communication** | Sync (HTTP) and Async (AMQP/RabbitMQ). |
-| **Concurrency** | Heavy use of Goroutines for non-blocking I/O. |
-| **Statelessness** | API is stateless; state is externalized to Redis/Mongo. |
-| **Fault Tolerance** | Queue-based persistence ensures tasks aren't lost if workers fail. |
-| **Scalability** | Horizontal scaling enabled via Docker. |
+| **Separation of Concerns** | Layered Clean Architecture (Domain -> App -> Infra). |
+| **Asynchronous Messaging** | RabbitMQ ensures API responsiveness despite AI processing latency. |
+| **State Externalization** | All state resides in Redis/Mongo, allowing for horizontal scalability. |
+| **Persistence & Fault Tolerance** | Queue-based task persistence protects against worker outages. |
+| **Security & RBAC** | Tiered Role-Based Access Control (Admin/User) enforced via JWT middleware. |
+| **Bootstrapping** | Automated "First User is Admin" logic for zero-config deployment. |
 
-## 6. Use Case Walkthrough
-1. **Submit**: A developer submits a standup transcript: *"Finished the login UI but stuck on the API integration because the auth service is down."*
-2. **Synchronous Analysis**: The API triggers the configured LLM provider to parse the transcript immediately.
-3. **Structured Response**: Within seconds, the user receives a response with the tasks and blockers automatically extracted.
-4. **Insight**: The Scrum Master opens the `Reports` dashboard and sees the bottleneck highlighted across the team, enabling faster resolution.
+---
 
-## 7. Conclusion and Future Work
-ScrumAI successfully demonstrates how a distributed system can handle intensive AI processing while remaining responsive and reliable.
+## 6. Case Study Walkthrough
+1. **The Infrastructure**: A Docker Compose file orchestrates 6 distinct containers representing the full stack.
+2. **The Handover**: A developer submits a transcript with a blocker.
+3. **The Distributed Response**: The API handles the user synchronously for immediate UX, while the Worker picks up the event to update the "Master Blocker List" in the background.
+4. **The Management Insight**: An Admin uses the console to organize teams and monitor reports, seeing the blocker highlighted across the organizational tree.
 
-**Future Work**:
-- **WebSocket Integration**: Real-time ticker for analysis updates.
-- **Service Mesh**: Using Istio for better observability.
-- **Distributed Tracing**: Implementing OpenTelemetry to track requests across services.
+---
+
+## 7. Configuration and Setup
+
+### 7.1 Docker Execution (Primary)
+```bash
+docker compose up --build
+```
+
+### 7.2 Manual Installation (Secondary)
+The system supports manual execution for environments without Docker. Detailed logic for running the API, Worker, and Frontend individually is provided in the project [README.md](../../../README.md).
+
+---
+
+## 8. Conclusion
+ScrumAI demonstrates the power of combining modern AI with established distributed systems principles. It provides a robust, scalable foundations for the future of automated project management.
+
+**Technical Stack**: Go, TypeScript, React, MongoDB, Redis, RabbitMQ, Docker.

@@ -130,7 +130,7 @@ If you see errors related to MongoDB or Redis connection:
 - `internal/`: Private application and library code.
 - `domain/`: Core business logic (entities, repository interfaces, AI service interface).
 - `application/`: Application logic and use cases.
-- `infrastructure/`: Implementations of repository interfaces (MongoDB, Cache, Messaging, OpenAI).
+- `infrastructure/`: Implementations of repository interfaces (MongoDB, Cache, Messaging, AI Providers).
 - `interfaces/`: HTTP handlers and RabbitMQ consumers.
 - `pkg/`: Shared utility packages (JWT, Hash, Logger).
 - `docker/`: Dockerfiles for various services.

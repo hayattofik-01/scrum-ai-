@@ -56,6 +56,27 @@ func (h *UserHandler) ListAll(c *gin.Context) {
 	c.JSON(http.StatusOK, users)
 }
 
+// GetByEmail godoc
+// @Summary      Get user by email
+// @Description  Find a user by their email address (Admin only)
+// @Tags         admin
+// @Produce      json
+// @Param        email  path      string  true  "User email"
+// @Success      200    {object}  entities.User
+// @Failure      404    {object}  map[string]string
+// @Security     ApiKeyAuth
+// @Router       /admin/users/email/{email} [get]
+func (h *UserHandler) GetByEmail(c *gin.Context) {
+	email := c.Param("email")
+	user, err := h.userService.GetUserByEmail(c.Request.Context(), email)
+	if err != nil {
+		c.JSON(http.StatusNotFound, gin.H{"error": "user not found"})
+		return
+	}
+
+	c.JSON(http.StatusOK, user)
+}
+
 // Update godoc
 // @Summary      Update user
 // @Description  Update user details (Admin or self)

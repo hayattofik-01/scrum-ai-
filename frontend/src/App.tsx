@@ -11,6 +11,8 @@ import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import Standups from "./pages/Standups";
 import Reports from "./pages/Reports";
+import Teams from "./pages/Teams";
+import Admin from "./pages/Admin";
 
 const queryClient = new QueryClient();
 
@@ -27,6 +29,8 @@ const App = () => (
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/standups" element={<Standups />} />
           <Route path="/reports" element={<Reports />} />
+          <Route path="/teams" element={<Teams />} />
+          <Route path="/admin" element={<Admin />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

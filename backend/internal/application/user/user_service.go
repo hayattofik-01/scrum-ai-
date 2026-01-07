@@ -15,6 +15,7 @@ type UpdateUserRequest struct {
 
 type UserService interface {
 	GetUser(ctx context.Context, id uuid.UUID) (*entities.User, error)
+	GetUserByEmail(ctx context.Context, email string) (*entities.User, error)
 	ListUsers(ctx context.Context) ([]entities.User, error)
 	UpdateUser(ctx context.Context, id uuid.UUID, req UpdateUserRequest) (*entities.User, error)
 	DeleteUser(ctx context.Context, id uuid.UUID) error
@@ -31,6 +32,10 @@ func NewUserService(userRepo repositories.UserRepository) UserService {
 
 func (s *userService) GetUser(ctx context.Context, id uuid.UUID) (*entities.User, error) {
 	return s.userRepo.GetByID(ctx, id)
+}
+
+func (s *userService) GetUserByEmail(ctx context.Context, email string) (*entities.User, error) {
+	return s.userRepo.GetByEmail(ctx, email)
 }
 
 func (s *userService) ListUsers(ctx context.Context) ([]entities.User, error) {

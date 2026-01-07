@@ -25,8 +25,10 @@ graph TD
 
 ## 4. API Overview
 The API is versioned (`/api/v1`) and documented with Swagger. Key functional areas:
-* **Authentication:** Registration, Login, and Session Invalidation.
-* **Standups:** Submission of text-based updates.
+* **Authentication:** Registration, Login, and Session Invalidation. Supports **First-User Bootstrap** where the initial registrant becomes Admin.
+* **Standups:** Submission of text or file-based transcripts with immediate AI analysis.
+* **Teams:** Multi-tenant organization support (Creation and Member assignment).
+* **Admin:** RBAC-protected routes for system-wide user management and role elevation.
 * **Reports:** Retrieval of AI-processed insights, rolling tasks, and team blockers.
 
 ## 5. Messaging and Processing
@@ -40,11 +42,15 @@ The system implements a Strategy pattern for AI analysis. In `cmd/api/main.go`, 
 * **Acknowledgments:** RabbitMQ message acknowledgments ensure that tasks are only removed from the queue after successful processing.
 * **Statelessness:** All service nodes are stateless, allowing for easy horizontal scaling behind a load balancer.
 
-## 7. Security Overview
-* **JWT:** Secure, stateless identity propagation across the distributed system.
+## 8. Security Overview
+* **JWT:** Secure, stateless identity propagation with roles (`admin`, `regular`).
 * **Bcrypt:** Industry-standard hashing for user credentials.
-* **Environment Isolation:** All sensitive keys (API keys, DB URIs) are managed via `.env` files and environment variables.
+* **RBAC:** Middleware-enforced Role-Based Access Control for sensitive administrative endpoints.
+* **Environment Isolation:** All sensitive keys (API keys, DB URIs) are managed via `.env` files.
 
-## 8. Known Limitations
-* **AI Latency:** Analysis time is subject to OpenAI API response times.
-* **Real-time Feedback:** Currently requires polling; real-time updates are a future enhancement.
+## 9. Real-time Capabilities
+While initially static, the frontend now implements an **Automated Polling Engine (30s interval)** for the Dashboard and Reports. This simulates real-time behavior by ensuring UI data stays synchronized with the background worker's analysis results.
+
+## 10. Known Limitations
+* **AI Latency:** Analysis time is subject to selected AI provider response times.
+* **Push Notifications:** Currently uses polling; future versions will implement WebSockets (Socket.io) for push-based updates.

@@ -83,6 +83,7 @@ func NewRouter(cfg *config.Config, authService auth.AuthService, standupService 
 			adminOnly.Use(middleware.RoleMiddleware(entities.RoleAdmin))
 			{
 				adminOnly.GET("/users", userHandler.ListAll)
+				adminOnly.GET("/users/email/:email", userHandler.GetByEmail)
 				adminOnly.PUT("/users/:id", userHandler.Update)
 				adminOnly.DELETE("/users/:id", userHandler.Delete)
 			}

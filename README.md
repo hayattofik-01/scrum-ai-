@@ -1,73 +1,81 @@
-# Welcome to your Lovable project
+# ScrumAI: Distributed AI-Assisted Scrum Management
 
-## Project info
+ScrumAI is a high-performance distributed system designed to revolutionize daily standups and sprint tracking. It transforms raw meeting transcripts into structured, actionable data using advanced AI analysis.
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+## ✨ Features
 
-## How can I edit this code?
+- **Distributed Architecture**: Clean, hexagonal architecture with an independent Go API, Background Worker, RabbitMQ, MongoDB, and Redis.
+- **AI-Driven Insights**: Synchronous extraction of completed tasks, planned work, and blockers from standup transcripts.
+- **Multitenancy & Teams**: Create multiple teams and manage memberships within your organization.
+- **Admin Console**: Full user management system with email-based role elevation.
+- **Bootstrapping**: The first user to register automatically becomes the System Admin.
+- **Real-Time Dashboard**: Auto-refreshing metrics (30s interval) for live project health monitoring.
+- **Containerized Development**: Full-stack orchestration via Docker Compose.
 
-There are several ways of editing your application.
+## 🚀 Quick Start
 
-**Use Lovable**
+### Option 1: Docker (Recommended)
+The fastest way to run the entire stack (Frontend, API, Worker, DBs) is using Docker Compose:
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
+```bash
+docker compose up --build
+```
 
-Changes made via Lovable will be committed automatically to this repo.
+### Option 2: Manual (Without Docker)
+If you don't have Docker installed, follow these steps to run the services individually.
 
-**Use your preferred IDE**
+#### 1. Prerequisites
+- **Go 1.21+** (for Backend)
+- **Node.js 18+** & **npm** (for Frontend)
+- **MongoDB** (Running on port 27017)
+- **Redis** (Running on port 6379)
+- **RabbitMQ** (Running on port 5672)
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+#### 2. Running the Backend
+```bash
+cd backend
+# Run API (Port 8081)
+go run cmd/api/main.go
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+# Run Worker (In a separate terminal)
+go run cmd/worker/main.go
+```
 
-Follow these steps:
+#### 3. Running the Frontend
+```bash
+cd frontend
+# Install dependencies
+npm install
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+# Start development server (Port 5173)
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+## 📂 Project Structure
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+- **`/frontend`**: React + Vite application (UI, components, pages).
+- **`/backend`**: Go implementation (API, Worker, business logic).
+- **`docker-compose.yml`**: Common orchestration for the entire stack.
 
-**Use GitHub Codespaces**
+The application will be available at:
+- **Frontend**: `http://localhost:5173`
+- **API Swagger**: `http://localhost:8081/swagger/index.html`
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## 🛠 Technology Stack
 
-## What technologies are used for this project?
+- **Frontend**: React, Vite, TypeScript, Tailwind CSS, Shadcn UI.
+- **Backend**: Go (Golang), Gin Gonic.
+- **AI**: Configurable providers (OpenAI, Gemini, Hugging Face, LLM7).
+- **Messaging**: RabbitMQ.
+- **Database**: MongoDB (Persistence), Redis (Sessions).
 
-This project is built with:
+## 📖 Documentation
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+For detailed technical insights and project reporting, refer to:
+- [Detailed Project Report](backend/docs/submission/1_Detailed_Report.md)
+- [Technical Documentation](backend/docs/submission/2_Technical_Documentation.md)
+- [Backend Development Guide](backend/README.md)
 
-## How can I deploy this project?
+---
 
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+Built with ❤️ by the ScrumAI Team.
