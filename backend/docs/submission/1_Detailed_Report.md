@@ -3,12 +3,13 @@
 ## 1. Introduction + Idea + Originality
 **ScrumAI** is a distributed system designed to revolutionize daily standups and sprint tracking. Traditional scrum tools rely on manual updates which are often forgotten or lacked depth. 
 
-**The Idea**: Users submit their daily standups in plain text. A distributed worker processes these standups using Large Language Models (GPT-4o) to automatically extract:
-- **Rolling Tasks**: Tasks that are moving from one state to another.
+**The Idea**: Users submit their daily standups (transcripts). The system processes these using Large Language Models (GPT-4o, Gemini, or etc.) to automatically extract:
+- **Completed Tasks**: What has been achieved.
+- **In-Progress & Planned Tasks**: Current and future work.
 - **Blockers**: Identifying dependencies or issues that stop progress.
-- **Sentiment/Progress**: Providing a high-level overview of team health.
+- **AI Insights**: Providing high-level overview of team health and sentiment.
 
-**Originality**: Unlike static Jira boards, ScrumAI uses an **asynchronous, event-driven architecture** to provide active insights, transforming raw text into actionable data without blocking the user interface.
+**Originality**: ScrumAI combines a **clean architecture** with **advanced AI parsing**. It transforms raw meeting transcripts into structured actionable data synchronously upon submission, ensuring immediate visibility into team progress while maintaining a scalable distributed backend.
 
 ## 2. Architecture and Design
 The system follows **Clean Architecture** and is composed of several independent services.
@@ -25,10 +26,10 @@ graph TD
     Client[Web/Mobile Client] -- HTTP REST --> API[Go API Server]
     API -- Read/Write --> Mongo[(MongoDB)]
     API -- Session/Cache --> Redis[(Redis)]
-    API -- Publish Event --> Rabbit[RabbitMQ]
+    API -- AI Analysis --> LLM[LLM Provider]
+    API -- Publish Backup Event --> Rabbit[RabbitMQ]
     Rabbit -- Consume Event --> Worker[Go Background Worker]
-    Worker -- AI Analysis --> OpenAI[GPT-4o API]
-    Worker -- Save Analysis --> Mongo
+    Worker -- Deep Analysis/Reports --> Mongo
 ```
 
 ## 3. Technologies Used
@@ -60,10 +61,10 @@ The API follows RESTful principles and is versioned under `/api/v1`. Key modules
 | **Scalability** | Horizontal scaling enabled via Docker. |
 
 ## 6. Use Case Walkthrough
-1. **Submit**: A developer submits a standup: *"Finished the login UI but stuck on the API integration because the auth service is down."*
-2. **Queue**: The API saves the raw text and pushes a `StandupSubmitted` event to RabbitMQ.
-3. **Analyze**: The Worker picks up the message, sends it to GPT-4o, and identifies a **Blocker** (Auth service down).
-4. **Insight**: The Scrum Master opens the `Blockers` report and immediately sees the identified bottleneck without reading through 20 messages.
+1. **Submit**: A developer submits a standup transcript: *"Finished the login UI but stuck on the API integration because the auth service is down."*
+2. **Synchronous Analysis**: The API triggers the configured LLM provider to parse the transcript immediately.
+3. **Structured Response**: Within seconds, the user receives a response with the tasks and blockers automatically extracted.
+4. **Insight**: The Scrum Master opens the `Reports` dashboard and sees the bottleneck highlighted across the team, enabling faster resolution.
 
 ## 7. Conclusion and Future Work
 ScrumAI successfully demonstrates how a distributed system can handle intensive AI processing while remaining responsive and reliable.

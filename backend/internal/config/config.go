@@ -23,6 +23,9 @@ type Config struct {
 	CORSAllowedOrigins string
 	OpenAIKey          string
 	OpenAIModel        string
+	GeminiKey          string
+	AIProvider         string
+	HuggingFaceKey     string
 }
 
 func LoadConfig() *Config {
@@ -46,6 +49,9 @@ func LoadConfig() *Config {
 		CORSAllowedOrigins: getEnv("CORS_ALLOWED_ORIGINS", "http://localhost:5173"),
 		OpenAIKey:          getEnv("OPENAI_API_KEY", ""),
 		OpenAIModel:        getEnv("OPENAI_MODEL", "gpt-4o"),
+		GeminiKey:          getEnv("GEMINI_API_KEY", ""),
+		AIProvider:         getEnv("AI_PROVIDER", "mock"),
+		HuggingFaceKey:     getEnv("HUGGINGFACE_API_KEY", ""),
 	}
 }
 

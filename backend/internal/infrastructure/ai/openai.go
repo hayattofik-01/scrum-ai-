@@ -2,6 +2,7 @@ package ai
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"strings"
 
@@ -91,4 +92,54 @@ func (s *openaiService) buildPrompt(standup *entities.Standup) string {
 	sb.WriteString("4. Keep the tone professional but encouraging.")
 
 	return sb.String()
+}
+
+func (s *openaiService) ParseTranscript(ctx context.Context, transcript string) (*services.ParsedStandupData, error) {
+	prompt := fmt.Sprintf(`Analyze the following standup transcript and extract the tasks into specific categories. Return ONLY a valid JSON object with the following structure:
+{
+  "completed_tasks": ["task 1", "task 2"],
+  "in_progress_tasks": ["task 3"],
+  "planned_tasks": ["task 4"],
+  "blockers": ["blocker 1"],
+  "notes": "any additional general notes"
+}
+
+Transcript:
+%s`, transcript)
+
+	resp, err := s.client.CreateChatCompletion(
+		ctx,
+		openai.ChatCompletionRequest{
+			Model: s.model,
+			Messages: []openai.ChatCompletionMessage{
+				{
+					Role:    openai.ChatMessageRoleSystem,
+					Content: "You are a helpful assistant that extracts structured data from standup transcripts. You always output valid JSON.",
+				},
+				{
+					Role:    openai.ChatMessageRoleUser,
+					Content: prompt,
+				},
+			},
+			ResponseFormat: &openai.ChatCompletionResponseFormat{
+				Type: openai.ChatCompletionResponseFormatTypeJSONObject,
+			},
+		},
+	)
+
+	if err != nil {
+		return nil, err
+	}
+
+	if len(resp.Choices) == 0 {
+		return nil, fmt.Errorf("no response from OpenAI")
+	}
+
+	content := resp.Choices[0].Message.Content
+	var parsedData services.ParsedStandupData
+	if err := json.Unmarshal([]byte(content), &parsedData); err != nil {
+		return nil, fmt.Errorf("failed to parse OpenAI JSON response: %v", err)
+	}
+
+	return &parsedData, nil
 }

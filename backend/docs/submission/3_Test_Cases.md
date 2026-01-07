@@ -1,21 +1,21 @@
 # ScrumAI – Test Cases
 
 ## 1. Standup Submission
-* **Description:** Verify that a user can submit a standup and it is persisted.
-* **Input:** Valid text standup via `POST /api/v1/standups`.
-* **Expected Result:** HTTP 201 Created; record exists in MongoDB; message published to RabbitMQ.
+* **Description:** Verify that a user can submit a standup transcript and receive structured data immediately.
+* **Input:** Valid transcript (multipart/form-data) via `POST /api/v1/standups`.
+* **Expected Result:** HTTP 201 Created; response JSON contains populated `completed_tasks`, `in_progress_tasks`, etc.; record exists in MongoDB; backup message published to RabbitMQ.
 * **Status:** Pass
 
-## 2. Message Queue Processing
-* **Description:** Ensure the background worker correctly consumes messages.
-* **Input:** A `StandupSubmitted` message in the RabbitMQ queue.
-* **Expected Result:** Worker starts processing; logs indicate message receipt.
+## 2. Message Queue (Backup processing)
+* **Description:** Ensure the background worker correctly consumes the backup analysis messages.
+* **Input:** A `StandupAnalysisMessage` in the RabbitMQ queue.
+* **Expected Result:** Worker starts processing; logs indicate message receipt for deep analysis/reports.
 * **Status:** Pass
 
-## 3. AI Analysis Output
-* **Description:** Validate that blockers are correctly identified from standup text.
-* **Input:** Standup message mentioning "stuck on database migration."
-* **Expected Result:** Analysis record in MongoDB contains "database migration" as a blocker.
+## 3. Synchronous AI Output
+* **Description:** Validate that blockers are correctly identified and returned in the API response.
+* **Input:** Standup transcript mentioning "waiting for API endpoints deployment."
+* **Expected Result:** The `POST /api/v1/standups` response JSON contains "new API endpoints deployment" (or similar) in the `blockers` array.
 * **Status:** Pass
 
 ## 4. API Authentication

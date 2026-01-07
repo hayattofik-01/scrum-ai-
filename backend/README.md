@@ -8,9 +8,8 @@ This is the GoLang backend for ScrumAI, built following clean architecture princ
 - **Authentication**: JWT-based authentication with bcrypt password hashing.
 - **Session Management**: Explicit session control using Redis for token invalidation and logout.
 - **Role-Based Access Control (RBAC)**: Admin and Regular User roles.
-- **Async Analysis**: Background standup analysis (rolling tasks, blockers) using RabbitMQ and GPT-4o.
-- **Database**: MongoDB for flexible, document-based storage.
-- **OpenAI Integration**: Automated insights generation using GPT-4o.
+- **Synchronous Analysis**: Direct standup analysis (rolling tasks, blockers) during submission using configurable LLM providers (LLM7, OpenAI, Gemini, etc.).
+- **Async Backup**: Message publishing to RabbitMQ for background processing and reporting.
 - **Containerization**: Docker and Docker Compose support.
 
 ## Prerequisites
@@ -20,7 +19,7 @@ This is the GoLang backend for ScrumAI, built following clean architecture princ
 - MongoDB (if running locally)
 - Redis (if running locally)
 - RabbitMQ (if running locally)
-- OpenAI API Key
+- LLM Provider API Key (OpenAI, Gemini, or HuggingFace)
 
 ## Getting Started
 
@@ -32,7 +31,7 @@ Copy the example environment file and update it with your credentials:
 cp .env.example .env
 ```
 
-I have already created a `.env` file for you with the OpenAI key you provided!
+I have already created a `.env` file for you with the configured LLM provider!
 
 ### 2. Running with Docker (Recommended)
 
@@ -42,7 +41,7 @@ The easiest way to run the entire stack (API, Worker, MongoDB, Redis, RabbitMQ) 
 docker-compose up --build
 ```
 
-- API Server: `http://localhost:8080`
+
 - RabbitMQ Management: `http://localhost:15672` (guest/guest)
 
 ### 3. Running Locally
@@ -79,7 +78,7 @@ go test ./pkg/...
 The API is fully documented with Swagger and follows RESTful principles.
 
 ### Interactive Documentation
-- **Swagger UI**: `http://localhost:8080/swagger/index.html`
+- **Swagger UI**: `http://localhost:8081/swagger/index.html`
 
 ### Endpoints List
 
@@ -89,7 +88,7 @@ The API is fully documented with Swagger and follows RESTful principles.
 - `POST /api/v1/auth/logout` - Invalidate session (requires JWT)
 
 #### Standups & Analysis
-- `POST /api/v1/standups` - Submit daily standup. Triggers async AI analysis.
+- `POST /api/v1/standups` - Submit daily standup. Triggers synchronous AI analysis (returns populated tasks and blockers).
 - `GET /api/v1/standups` - List your recent standups
 - `GET /api/v1/standups/:id` - Get details of a specific standup and its analysis
 
@@ -110,9 +109,9 @@ The API is fully documented with Swagger and follows RESTful principles.
 To see the system in action:
 
 1. **Register & Login**: Use the `/auth/register` and `/auth/login` endpoints to get your JWT token.
-2. **Submit a Standup**: Send a `POST` to `/api/v1/standups` with a message like: *"Finished the dashboard UI. I am blocked by the backend API for the user profile data."*
-3. **Background Analysis**: The API will return immediately. In the background, the Worker picks up the task and uses GPT-4o to analyze the text.
-4. **Check Reports**: After a few seconds, call `GET /api/v1/reports/blockers`. You should see the blockages identified by the AI automatically extracted from your standup.
+2. **Submit a Standup**: Send a `POST` to `/api/v1/standups` with a transcript.
+3. **Synchronous Analysis**: The API will wait for the AI to parse the transcript and return the result immediately. You will see `completed_tasks`, `in_progress_tasks`, etc., populated in the response.
+4. **Check Reports**: Call `GET /api/v1/reports/rolling-tasks` or `/api/v1/reports/team-summary` to see aggregated insights.
 
 ## Troubleshooting
 

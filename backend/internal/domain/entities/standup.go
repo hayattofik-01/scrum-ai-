@@ -15,6 +15,7 @@ type Standup struct {
 	InProgressTasks []string  `json:"in_progress_tasks" bson:"in_progress_tasks" gorm:"type:text[]"`
 	PlannedTasks    []string  `json:"planned_tasks" bson:"planned_tasks" gorm:"type:text[]"`
 	Blockers        []string  `json:"blockers" bson:"blockers" gorm:"type:text[]"`
+	Transcript      string    `json:"transcript" bson:"transcript" gorm:"type:text"`
 	Notes           string    `json:"notes" bson:"notes" gorm:"type:text"`
 	CreatedAt       time.Time `json:"created_at" bson:"created_at" gorm:"default:now()"`
 	UpdatedAt       time.Time `json:"updated_at" bson:"updated_at" gorm:"default:now()"`

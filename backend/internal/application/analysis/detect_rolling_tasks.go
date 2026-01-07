@@ -39,6 +39,26 @@ func (s *analysisService) AnalyzeStandup(ctx context.Context, standupID uuid.UUI
 
 	log.Printf("Analyzing standup %s for team %s", standup.ID, standup.TeamID)
 
+	// 0. Parse Transcript if available
+	if standup.Transcript != "" && len(standup.CompletedTasks) == 0 && len(standup.InProgressTasks) == 0 {
+		parsedData, err := s.aiService.ParseTranscript(ctx, standup.Transcript)
+		if err != nil {
+			log.Printf("Error parsing transcript: %v", err)
+		} else {
+			standup.CompletedTasks = parsedData.CompletedTasks
+			standup.InProgressTasks = parsedData.InProgressTasks
+			standup.PlannedTasks = parsedData.PlannedTasks
+			standup.Blockers = parsedData.Blockers
+			if standup.Notes == "" {
+				standup.Notes = parsedData.Notes
+			}
+
+			if err := s.standupRepo.Update(ctx, standup); err != nil {
+				log.Printf("Error updating standup with parsed data: %v", err)
+			}
+		}
+	}
+
 	// 1. Detect Rolling Tasks
 	if err := s.detectRollingTasks(ctx, standup); err != nil {
 		log.Printf("Error detecting rolling tasks: %v", err)

@@ -15,7 +15,9 @@ Before starting, ensure you have the following installed:
    ```bash
    cp .env.example .env
    ```
-3. Update `.env` with your **OpenAI API Key** and other configuration details.
+3. Update `.env` with your **AI Provider** details:
+   - `AI_PROVIDER`: Choose from `freellm` (default, anonymous LLM7), `openai`, `gemini`, or `huggingface`.
+   - Provide the corresponding API key (e.g., `OPENAI_API_KEY`) if using a non-default provider.
 
 ## 3. Build and Run (Docker)
 The entire distributed stack can be started with a single command:

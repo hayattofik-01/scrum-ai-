@@ -101,6 +101,8 @@ definitions:
         type: array
       team_id:
         type: string
+      transcript:
+        type: string
       updated_at:
         type: string
       user_id:
@@ -161,37 +163,6 @@ definitions:
     required:
     - email
     - password
-    type: object
-  standup.SubmitStandupRequest:
-    properties:
-      blockers:
-        items:
-          type: string
-        type: array
-      completed_tasks:
-        items:
-          type: string
-        type: array
-      date:
-        type: string
-      in_progress_tasks:
-        items:
-          type: string
-        type: array
-      notes:
-        type: string
-      planned_tasks:
-        items:
-          type: string
-        type: array
-      team_id:
-        type: string
-      user_id:
-        type: string
-    required:
-    - date
-    - team_id
-    - user_id
     type: object
   user.CreateTeamRequest:
     properties:
@@ -557,15 +528,27 @@ paths:
       - standups
     post:
       consumes:
-      - application/json
-      description: Create a new standup entry for the user
+      - multipart/form-data
+      description: Create a new standup entry by uploading a transcript file
       parameters:
-      - description: Standup details
-        in: body
-        name: request
+      - description: Transcript file
+        in: formData
+        name: transcript
         required: true
-        schema:
-          $ref: '#/definitions/standup.SubmitStandupRequest'
+        type: file
+      - description: Team ID (UUID)
+        in: formData
+        name: team_id
+        required: true
+        type: string
+      - description: Date (RFC3339)
+        in: formData
+        name: date
+        type: string
+      - description: Notes
+        in: formData
+        name: notes
+        type: string
       produces:
       - application/json
       responses:
@@ -587,7 +570,7 @@ paths:
             type: object
       security:
       - ApiKeyAuth: []
-      summary: Submit a daily standup
+      summary: Submit a daily standup with transcript
       tags:
       - standups
   /teams:
@@ -726,6 +709,8 @@ paths:
       - teams
 securityDefinitions:
   ApiKeyAuth:
+    description: 'Type "Bearer" followed by a space and then your token. Example:
+      "Bearer eyJhbGci..."'
     in: header
     name: Authorization
     type: apiKey

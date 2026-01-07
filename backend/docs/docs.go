@@ -545,9 +545,9 @@ const docTemplate = `{
                         "ApiKeyAuth": []
                     }
                 ],
-                "description": "Create a new standup entry for the user",
+                "description": "Create a new standup entry by uploading a transcript file",
                 "consumes": [
-                    "application/json"
+                    "multipart/form-data"
                 ],
                 "produces": [
                     "application/json"
@@ -555,16 +555,33 @@ const docTemplate = `{
                 "tags": [
                     "standups"
                 ],
-                "summary": "Submit a daily standup",
+                "summary": "Submit a daily standup with transcript",
                 "parameters": [
                     {
-                        "description": "Standup details",
-                        "name": "request",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/standup.SubmitStandupRequest"
-                        }
+                        "type": "file",
+                        "description": "Transcript file",
+                        "name": "transcript",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Team ID (UUID)",
+                        "name": "team_id",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Date (RFC3339)",
+                        "name": "date",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Notes",
+                        "name": "notes",
+                        "in": "formData"
                     }
                 ],
                 "responses": {
@@ -956,6 +973,9 @@ const docTemplate = `{
                 "team_id": {
                     "type": "string"
                 },
+                "transcript": {
+                    "type": "string"
+                },
                 "updated_at": {
                     "type": "string"
                 },
@@ -1048,52 +1068,6 @@ const docTemplate = `{
                 }
             }
         },
-        "standup.SubmitStandupRequest": {
-            "type": "object",
-            "required": [
-                "date",
-                "team_id",
-                "user_id"
-            ],
-            "properties": {
-                "blockers": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    }
-                },
-                "completed_tasks": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    }
-                },
-                "date": {
-                    "type": "string"
-                },
-                "in_progress_tasks": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    }
-                },
-                "notes": {
-                    "type": "string"
-                },
-                "planned_tasks": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    }
-                },
-                "team_id": {
-                    "type": "string"
-                },
-                "user_id": {
-                    "type": "string"
-                }
-            }
-        },
         "user.CreateTeamRequest": {
             "type": "object",
             "required": [
@@ -1125,6 +1099,7 @@ const docTemplate = `{
     },
     "securityDefinitions": {
         "ApiKeyAuth": {
+            "description": "Type \"Bearer\" followed by a space and then your token. Example: \"Bearer eyJhbGci...\"",
             "type": "apiKey",
             "name": "Authorization",
             "in": "header"

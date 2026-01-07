@@ -8,6 +8,7 @@ import (
 
 	"github.com/hayat/scrumai/internal/application/analysis"
 	"github.com/hayat/scrumai/internal/config"
+	"github.com/hayat/scrumai/internal/domain/services"
 	"github.com/hayat/scrumai/internal/infrastructure/ai"
 	"github.com/hayat/scrumai/internal/infrastructure/database"
 	"github.com/hayat/scrumai/internal/infrastructure/messaging"
@@ -32,7 +33,27 @@ func main() {
 	reportRepo := repositories.NewReportRepository(db)
 
 	// Initialize services
-	aiService := ai.NewOpenAIService(cfg)
+	var aiService services.AIService
+	var err error
+
+	switch cfg.AIProvider {
+	case "gemini":
+		aiService, err = ai.NewGeminiService(context.Background(), cfg)
+		if err != nil {
+			log.Fatalf("Failed to initialize Gemini service: %v", err)
+		}
+	case "huggingface":
+		log.Println("Using Hugging Face AI Service")
+		aiService = ai.NewHuggingFaceService(cfg)
+	case "freellm":
+		log.Println("Using Free Anonymous AI Service (LLM7.io)")
+		aiService = ai.NewFreeLLMService(cfg)
+	case "mock":
+		log.Println("Using Mock AI Service")
+		aiService = ai.NewMockService()
+	default: // defaults to openai
+		aiService = ai.NewOpenAIService(cfg)
+	}
 	analysisService := analysis.NewAnalysisService(standupRepo, rollingTaskRepo, reportRepo, aiService)
 
 	// Initialize worker handler
