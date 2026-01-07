@@ -2,7 +2,7 @@
 
 ScrumAI is a high-performance distributed system designed to revolutionize daily standups and sprint tracking. It transforms raw meeting transcripts into structured, actionable data using advanced AI analysis.
 
-## ✨ Features
+##  Features
 
 - **Distributed Architecture**: Clean, hexagonal architecture with an independent Go API, Background Worker, RabbitMQ, MongoDB, and Redis.
 - **AI-Driven Insights**: Synchronous extraction of completed tasks, planned work, and blockers from standup transcripts.
@@ -12,7 +12,7 @@ ScrumAI is a high-performance distributed system designed to revolutionize daily
 - **Real-Time Dashboard**: Auto-refreshing metrics (30s interval) for live project health monitoring.
 - **Containerized Development**: Full-stack orchestration via Docker Compose.
 
-## 🚀 Quick Start
+##  Quick Start
 
 ### Option 1: Docker (Recommended)
 The fastest way to run the entire stack (Frontend, API, Worker, DBs) is using Docker Compose:
@@ -69,13 +69,5 @@ The application will be available at:
 - **Messaging**: RabbitMQ.
 - **Database**: MongoDB (Persistence), Redis (Sessions).
 
-## 📖 Documentation
 
-For detailed technical insights and project reporting, refer to:
-- [Detailed Project Report](backend/docs/submission/1_Detailed_Report.md)
-- [Technical Documentation](backend/docs/submission/2_Technical_Documentation.md)
-- [Backend Development Guide](backend/README.md)
 
----
-
-Built with ❤️ by the ScrumAI Team.
