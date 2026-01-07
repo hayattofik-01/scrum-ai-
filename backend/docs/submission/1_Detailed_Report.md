@@ -36,6 +36,11 @@ The Reports module identifies "Rolling Tasks"—complex items that persist over 
 
 ![AI Insights](/Users/nat/.gemini/antigravity/brain/eb337c1b-351c-4000-99bd-0565265fe594/scrumai_reports_mockup_png_1767800077020.png)
 
+### 3.4 Messaging Backbone (RabbitMQ)
+As a distributed system, ScrumAI uses RabbitMQ to decouple the API from the heavy AI processing. This ensures that even if the AI provider is slow, the user experience remains fast and reliable.
+
+![RabbitMQ Management](/Users/nat/.gemini/antigravity/brain/eb337c1b-351c-4000-99bd-0565265fe594/rabbitmq_management_mockup_png_1767805763401.png)
+
 ---
 
 ## 4. Technical Architecture
@@ -100,3 +105,14 @@ The system supports manual execution for environments without Docker. Detailed l
 ScrumAI demonstrates the power of combining modern AI with established distributed systems principles. It provides a robust, scalable foundations for the future of automated project management.
 
 **Technical Stack**: Go, TypeScript, React, MongoDB, Redis, RabbitMQ, Docker.
+
+---
+
+## 9. Submission Attachment Guide
+When submitting this project, ensure you attach the following key visuals to demonstrate the system's depth:
+
+1. **The System Architecture**: The Mermaid diagram provided in Section 4.2.
+2. **The User Experience**: Screenshots of the **Dashboard** and **Standup Submission** (Sections 3.1 & 3.2).
+3. **The Data Depth**: The **AI Insights Report** (Section 3.3).
+4. **The Distributed Proof**: The **RabbitMQ Management Console** screenshot (Section 3.4) showing active queues.
+5. **The Clean Code**: Provide the directory structure tree shown in Section 8 of the root README.
