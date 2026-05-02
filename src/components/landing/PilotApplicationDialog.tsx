@@ -17,7 +17,8 @@ const pilotSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters.").max(100, "Name is too long."),
   company: z.string().min(2, "Company name must be at least 2 characters.").max(100, "Company name is too long."),
   team_size: z.string().optional(),
-  meeting_types: z.string().max(200, "Please keep meeting types brief.").optional().or(z.literal("")),
+  github_repo: z.string().max(200, "Please keep the repo URL brief.").optional().or(z.literal("")),
+  stakeholder_emails: z.string().max(500, "Please keep stakeholder emails brief.").optional().or(z.literal("")),
   message: z.string().max(1000, "Message is too long.").optional().or(z.literal("")),
 });
 
@@ -38,10 +39,13 @@ const PilotApplicationDialog = ({ children }: PilotApplicationDialogProps) => {
       name: "",
       company: "",
       team_size: "",
-      meeting_types: "",
+      github_repo: "",
+      stakeholder_emails: "",
       message: "",
     },
   });
+
+  const [submitted, setSubmitted] = useState(false);
 
   const onSubmit = async (data: PilotValues) => {
     setIsLoading(true);
@@ -49,17 +53,20 @@ const PilotApplicationDialog = ({ children }: PilotApplicationDialogProps) => {
     try {
       const { error } = await supabase
         .from("pilot_applications")
-        .insert([data]);
+        .insert([{
+          email: data.email,
+          name: data.name,
+          company: data.company,
+          team_size: data.team_size || null,
+          github_repo: data.github_repo || null,
+          stakeholder_emails: data.stakeholder_emails || null,
+          message: data.message || null,
+        }]);
 
       if (error) throw error;
 
-      toast({
-        title: "Application submitted!",
-        description: "We'll review your application and get back to you soon.",
-      });
-
+      setSubmitted(true);
       form.reset();
-      setOpen(false);
     } catch (error: any) {
       toast({
         title: "Something went wrong",
@@ -72,16 +79,31 @@ const PilotApplicationDialog = ({ children }: PilotApplicationDialogProps) => {
   };
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
+    <Dialog open={open} onOpenChange={(v) => { setOpen(v); if (!v) setSubmitted(false); }}>
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className="sm:max-w-lg max-h-[90vh] overflow-y-auto">
+        {submitted ? (
+          <div className="flex flex-col items-center text-center py-8 space-y-4">
+            <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center">
+              <Zap className="w-8 h-8 text-primary" />
+            </div>
+            <h3 className="font-display text-2xl font-bold text-foreground">You're in!</h3>
+            <p className="text-muted-foreground max-w-sm">
+              We'll be in touch within 24 hours to get your pilot set up. Keep an eye on your inbox.
+            </p>
+            <Button variant="hero-outline" onClick={() => { setOpen(false); setSubmitted(false); }}>
+              Close
+            </Button>
+          </div>
+        ) : (
+        <>
         <DialogHeader>
           <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4">
             <Zap className="w-6 h-6 text-primary" />
           </div>
-          <DialogTitle className="font-display text-2xl">Apply for Early Pilot</DialogTitle>
+          <DialogTitle className="font-display text-2xl">Start your free pilot</DialogTitle>
           <DialogDescription>
-            Join our early pilot program and use ScrumAI with your real recurring meetings.
+            Connect one GitHub repo and get your first plain-English delivery report in 20 minutes. No credit card required.
           </DialogDescription>
         </DialogHeader>
 
@@ -142,22 +164,34 @@ const PilotApplicationDialog = ({ children }: PilotApplicationDialogProps) => {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="pilot-meeting-types">What recurring meetings do you run?</Label>
+            <Label htmlFor="pilot-github-repo">GitHub repository URL</Label>
             <Input
-              id="pilot-meeting-types"
-              placeholder="e.g., Daily standups, Sprint planning, Leadership syncs"
-              {...form.register("meeting_types")}
+              id="pilot-github-repo"
+              placeholder="https://github.com/your-org/your-repo"
+              {...form.register("github_repo")}
             />
-            {form.formState.errors.meeting_types && (
-              <p className="text-sm text-destructive">{form.formState.errors.meeting_types.message}</p>
+            {form.formState.errors.github_repo && (
+              <p className="text-sm text-destructive">{form.formState.errors.github_repo.message}</p>
             )}
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="pilot-message">Anything else you'd like us to know?</Label>
+            <Label htmlFor="pilot-stakeholder-emails">Stakeholder emails (who should receive reports?)</Label>
+            <Input
+              id="pilot-stakeholder-emails"
+              placeholder="e.g., client@agency.com, cto@company.com"
+              {...form.register("stakeholder_emails")}
+            />
+            {form.formState.errors.stakeholder_emails && (
+              <p className="text-sm text-destructive">{form.formState.errors.stakeholder_emails.message}</p>
+            )}
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="pilot-message">Anything else? (e.g., what questions do your stakeholders always ask?)</Label>
             <Textarea
               id="pilot-message"
-              placeholder="Tell us about your team's biggest meeting challenges..."
+              placeholder="Tell us about your project and what your clients or board need to know..."
               {...form.register("message")}
               rows={3}
             />
@@ -173,10 +207,12 @@ const PilotApplicationDialog = ({ children }: PilotApplicationDialogProps) => {
                 Submitting...
               </>
             ) : (
-              "Submit Application"
+              "Start free pilot"
             )}
           </Button>
         </form>
+        </>
+        )}
       </DialogContent>
     </Dialog>
   );

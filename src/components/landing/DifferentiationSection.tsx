@@ -1,72 +1,85 @@
 import { motion } from "framer-motion";
-import { X, Shield } from "lucide-react";
+import { FileText, Zap, Target, Mail, Search, Pencil } from "lucide-react";
 
-const notList = [
-  "a transcription tool",
-  "a note-taker",
-  "another reporting system",
+const features = [
+  {
+    icon: FileText,
+    title: "Reads the real code",
+    description: "Not ticket titles. Not PR names. ScrumAI analyses what was genuinely implemented — so what gets reported is what is true.",
+  },
+  {
+    icon: Zap,
+    title: "Writes itself, sends itself",
+    description: "No manual input. The report is generated from your codebase and delivered to your stakeholders — every sprint, without you touching it.",
+  },
+  {
+    icon: Target,
+    title: "Plain English, always",
+    description: "No story points. No GitHub links. No jargon. A report your client or board can read in two minutes and act on immediately.",
+  },
+  {
+    icon: Mail,
+    title: "Email + dashboard",
+    description: "Stakeholders receive it by email automatically. Your team sees the live dashboard. Everyone always knows where things stand.",
+  },
+  {
+    icon: Search,
+    title: "Deadline visibility",
+    description: "A factual verdict on whether your project will hit the date — based on actual delivery pace, not gut feel or burndown charts.",
+  },
+  {
+    icon: Pencil,
+    title: "Custom for your team",
+    description: "Your clients ask specific questions every sprint. We configure ScrumAI to answer those questions — automatically, in your language.",
+  },
 ];
 
 const DifferentiationSection = () => {
   return (
-    <section className="py-24 relative overflow-hidden bg-secondary/30">
+    <section className="py-28 relative overflow-hidden">
       <div className="container px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-6xl mx-auto">
+          {/* Header */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.6 }}
-            className="text-center mb-12"
+            className="text-center mb-16 max-w-2xl mx-auto"
           >
-            <h2 className="font-display text-3xl sm:text-4xl font-bold text-foreground mb-6">
-              What makes ScrumAI different?
+            <p className="text-xs font-mono uppercase tracking-widest text-primary mb-4">Why ScrumAI</p>
+            <h2 className="font-display text-3xl sm:text-4xl font-bold text-foreground leading-tight">
+              Built for the gap between{" "}
+              <span className="text-gradient">engineering and everyone else.</span>
             </h2>
+            <p className="text-lg text-muted-foreground mt-4">
+              The people who fund your work rarely understand what's happening inside it. ScrumAI closes that gap.
+            </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 gap-8 items-center">
-            {/* What it's NOT */}
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-              className="space-y-3"
-            >
-              <p className="text-muted-foreground mb-4">ScrumAI is not:</p>
-              {notList.map((item, index) => (
-                <div key={index} className="flex items-center gap-3 p-3 rounded-lg bg-destructive/5 border border-destructive/20">
-                  <X className="w-5 h-5 text-destructive/70" />
-                  <span className="text-foreground/80">{item}</span>
+          {/* Feature grid — 3×2 */}
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {features.map((feature, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.06, duration: 0.5 }}
+                className="group relative p-6 rounded-xl border border-border/40 bg-card/40 hover:bg-card/70 hover:border-primary/20 transition-all duration-300"
+              >
+                <div className="w-10 h-10 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center mb-4 group-hover:shadow-glow transition-shadow duration-300">
+                  <feature.icon className="w-5 h-5 text-primary" />
                 </div>
-              ))}
-            </motion.div>
-
-            {/* What it IS */}
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2, duration: 0.5 }}
-              className="p-6 rounded-2xl bg-gradient-card border border-primary/30"
-            >
-              <Shield className="w-10 h-10 text-primary mb-4" />
-              <p className="text-lg text-foreground mb-4">
-                ScrumAI is the <span className="text-gradient font-semibold">execution accountability layer</span> your team has been missing.
-              </p>
-              <p className="text-muted-foreground">
-                It doesn't help you talk better.
-              </p>
-              <p className="text-xl font-display font-semibold text-foreground mt-2">
-                It helps you <span className="text-gradient">close better.</span>
-              </p>
-              <p className="text-sm text-muted-foreground mt-4 italic">
-                Built for teams who care deeply about delivery discipline.
-              </p>
-            </motion.div>
+                <h3 className="text-sm font-semibold text-foreground mb-2">{feature.title}</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">{feature.description}</p>
+              </motion.div>
+            ))}
           </div>
         </div>
       </div>
+
+      <div className="absolute bottom-0 left-0 right-0 section-divider" />
     </section>
   );
 };

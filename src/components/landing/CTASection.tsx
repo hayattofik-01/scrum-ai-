@@ -1,80 +1,58 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Mail, Zap } from "lucide-react";
-import WaitlistDialog from "./WaitlistDialog";
+import { ArrowRight, Zap } from "lucide-react";
+import ContactDialog from "./ContactDialog";
 import PilotApplicationDialog from "./PilotApplicationDialog";
 
 const CTASection = () => {
   return (
-    <section className="py-24 relative overflow-hidden">
+    <section className="py-28 relative overflow-hidden">
       {/* Background glow */}
       <div className="absolute inset-0">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] bg-gradient-glow opacity-50" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[500px] bg-gradient-glow opacity-40" />
       </div>
+      <div className="absolute inset-0 bg-gradient-mesh opacity-30" />
 
       <div className="container px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="max-w-3xl mx-auto text-center">
+        <div className="max-w-2xl mx-auto text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.6 }}
           >
-            <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-6">
-              Be part of the first teams shaping ScrumAI
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/20 mb-8">
+              <Zap className="w-3.5 h-3.5 text-primary" />
+              <span className="text-xs font-medium text-primary">Limited early access spots</span>
+            </div>
+
+            <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-6 leading-tight">
+              Your stakeholders{" "}
+              <span className="text-gradient">shouldn't have to ask.</span>
             </h2>
-            <p className="text-lg text-muted-foreground mb-12">
-              We're onboarding early teams who want stronger execution and clearer outcomes from recurring meetings.
+            <p className="text-lg text-muted-foreground mb-10">
+              Give them a clear, accurate update every sprint — automatically.
             </p>
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2, duration: 0.5 }}
-            className="grid sm:grid-cols-2 gap-6 mb-8"
+            className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-8"
           >
-            {/* Pilot Card - Primary */}
-            <div className="p-6 rounded-2xl bg-gradient-card border border-primary/30 hover:border-primary/50 transition-all duration-300 text-left relative overflow-hidden order-1">
-              <div className="absolute top-0 right-0 px-3 py-1 bg-primary/20 text-primary text-xs font-semibold rounded-bl-lg">
-                Limited Spots
-              </div>
-              <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4">
-                <Zap className="w-6 h-6 text-primary" />
-              </div>
-              <h3 className="font-display text-xl font-semibold text-foreground mb-2">
-                Apply for Early Pilot
-              </h3>
-              <p className="text-muted-foreground mb-4">
-                Use ScrumAI with your real recurring meetings.
-              </p>
-              <PilotApplicationDialog>
-                <Button variant="hero" size="lg" className="w-full">
-                  Apply for Pilot
-                  <ArrowRight className="w-4 h-4" />
-                </Button>
-              </PilotApplicationDialog>
-            </div>
-
-            {/* Waitlist Card */}
-            <div className="p-6 rounded-2xl bg-gradient-card border border-border/50 hover:border-primary/30 transition-all duration-300 text-left order-2">
-              <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4">
-                <Mail className="w-6 h-6 text-primary" />
-              </div>
-              <h3 className="font-display text-xl font-semibold text-foreground mb-2">
-                Join the Waitlist
-              </h3>
-              <p className="text-muted-foreground mb-4">
-                Get launch updates and early access.
-              </p>
-              <WaitlistDialog>
-                <Button variant="hero-outline" size="lg" className="w-full">
-                  Join Waitlist
-                  <ArrowRight className="w-4 h-4" />
-                </Button>
-              </WaitlistDialog>
-            </div>
+            <PilotApplicationDialog>
+              <Button variant="hero" size="lg">
+                Start free pilot
+                <ArrowRight className="w-4 h-4" />
+              </Button>
+            </PilotApplicationDialog>
+            <ContactDialog>
+              <Button variant="hero-outline" size="lg">
+                Book a demo
+              </Button>
+            </ContactDialog>
           </motion.div>
 
           <motion.p
@@ -82,9 +60,9 @@ const CTASection = () => {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.4, duration: 0.5 }}
-            className="text-sm text-muted-foreground"
+            className="text-xs text-muted-foreground"
           >
-            Pilot teams are prioritized if they run recurring standups, sprint cycles, and leadership syncs.
+            scrumai.tech · No credit card · First report in 20 minutes
           </motion.p>
         </div>
       </div>

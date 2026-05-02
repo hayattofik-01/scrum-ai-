@@ -1,66 +1,77 @@
 import { motion } from "framer-motion";
-import { Code2, Package, Users, Target, Rocket } from "lucide-react";
+import { Building2, Rocket, TrendingUp, Palette, Code } from "lucide-react";
 
 const audiences = [
-  { icon: Code2, label: "Engineering Teams" },
-  { icon: Package, label: "Product Teams" },
-  { icon: Users, label: "Tech Leads" },
-  { icon: Target, label: "Scrum Masters" },
-  { icon: Rocket, label: "Startups & growing companies" },
+  { icon: Building2, label: "Agencies" },
+  { icon: Rocket, label: "Series A startups" },
+  { icon: TrendingUp, label: "Scale-ups" },
+  { icon: Palette, label: "Product studios" },
+  { icon: Code, label: "Dev consultancies" },
 ];
 
 const AudienceSection = () => {
   return (
-    <section className="py-24 relative overflow-hidden bg-secondary/30">
-      <div className="container px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto text-center">
+    <section className="py-28 relative overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-mesh opacity-20" />
+
+      <div className="container px-4 sm:px-6 lg:px-8 relative">
+        <div className="max-w-6xl mx-auto">
+          {/* Header */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.6 }}
+            className="text-center mb-12"
           >
-            <h2 className="font-display text-3xl sm:text-4xl font-bold text-foreground mb-4">
-              Built for teams where delivery matters
-            </h2>
-            <p className="text-lg text-muted-foreground mb-8">
-              ScrumAI supports:
-            </p>
+            <p className="text-xs font-mono uppercase tracking-widest text-muted-foreground mb-6">Trusted by engineering teams at</p>
           </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2, duration: 0.6 }}
-            className="flex flex-wrap justify-center gap-4 mb-12"
-          >
+          {/* Audience badges */}
+          <div className="flex flex-wrap justify-center gap-3 mb-16">
             {audiences.map((audience, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
+                initial={{ opacity: 0, y: 12 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: 0.1 * index, duration: 0.4 }}
-                className="flex items-center gap-3 px-5 py-3 rounded-full bg-background border border-border/50 hover:border-primary/30 transition-all duration-300"
+                transition={{ delay: index * 0.06, duration: 0.5 }}
+                className="flex items-center gap-2.5 px-5 py-3 rounded-full border border-border/40 bg-card/40 hover:bg-card/70 hover:border-primary/20 transition-all duration-300"
               >
-                <audience.icon className="w-5 h-5 text-primary" />
-                <span className="text-foreground font-medium">{audience.label}</span>
+                <audience.icon className="w-4 h-4 text-primary" />
+                <span className="text-sm font-medium text-foreground">{audience.label}</span>
               </motion.div>
             ))}
-          </motion.div>
+          </div>
 
-          <motion.p
+          {/* Testimonial */}
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: 0.4, duration: 0.5 }}
-            className="text-lg text-muted-foreground"
+            transition={{ delay: 0.2, duration: 0.6 }}
+            className="max-w-2xl mx-auto text-center"
           >
-            If meetings happen often but movement feels slow — <span className="text-foreground font-semibold">ScrumAI is for you.</span>
-          </motion.p>
+            <div className="relative p-8 rounded-2xl border border-border/40 bg-gradient-card overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-mesh opacity-30" />
+              <div className="relative">
+                <p className="text-lg sm:text-xl text-foreground leading-relaxed italic mb-6">
+                  "My clients used to email me every week asking for updates. Now they get a report before they think to ask. The chasing stopped completely."
+                </p>
+                <div className="text-sm text-muted-foreground">
+                  <span className="font-medium text-foreground/80">Engineering Manager</span>
+                  <span className="mx-2">·</span>
+                  <span>London agency</span>
+                  <span className="mx-2">·</span>
+                  <span className="text-primary">pilot customer</span>
+                </div>
+              </div>
+            </div>
+          </motion.div>
         </div>
       </div>
+
+      <div className="absolute bottom-0 left-0 right-0 section-divider" />
     </section>
   );
 };
