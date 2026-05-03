@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, GitBranch, Mail, CheckCircle, Clock, ArrowUpRight, AlertTriangle, TrendingUp, Calendar, Shield, Zap } from "lucide-react";
+import { ArrowRight, GitBranch, Mail, CheckCircle, Clock, ArrowUpRight, AlertTriangle, TrendingUp, Calendar, Shield, Zap, MessageCircle, Send } from "lucide-react";
 import PilotApplicationDialog from "./PilotApplicationDialog";
 import ContactDialog from "./ContactDialog";
 
@@ -20,8 +20,8 @@ const HeroSection = () => {
       }} />
 
       <div className="container relative z-10 px-4 sm:px-6 lg:px-8 py-20">
-        <div className="grid lg:grid-cols-2 gap-12 items-start">
-          {/* Left — Copy */}
+        <div className="grid lg:grid-cols-2 gap-6 items-start">
+          {/* Top Left — Copy */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -41,8 +41,8 @@ const HeroSection = () => {
             </motion.div>
 
             <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.1] mb-6">
-              An insight for your team{" "}
-              <span className="text-gradient">where you stand.</span>
+              Finally understand{" "}
+              <span className="text-gradient">what your developers are building.</span>
             </h1>
 
             <motion.p
@@ -51,7 +51,7 @@ const HeroSection = () => {
               transition={{ delay: 0.3, duration: 0.6 }}
               className="text-lg text-muted-foreground max-w-lg mb-10 leading-relaxed"
             >
-              ScrumAI reads your codebase and sends your clients and board a plain-English delivery report — automatically, every sprint.
+              ScrumAI reads your codebase and gives you a report that actually matters — plain English, no jargon, so you can manage your team with clarity instead of guesswork.
             </motion.p>
 
             {/* CTA Buttons */}
@@ -80,18 +80,17 @@ const HeroSection = () => {
               transition={{ delay: 0.65, duration: 0.5 }}
               className="text-xs text-muted-foreground mt-4"
             >
-              No credit card · First report in 20 minutes
+              No credit card required
             </motion.p>
           </motion.div>
 
-          {/* Right — Dashboard + Email Preview */}
+          {/* Top Right — Dashboard Card */}
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3, duration: 0.8, ease: "easeOut" }}
-            className="hidden lg:flex flex-col gap-4"
+            className="hidden lg:block"
           >
-            {/* ── Dashboard Card — Non-technical Report Demo ── */}
             <div className="relative">
               <div className="absolute -inset-4 bg-gradient-glow opacity-30 blur-2xl" />
               <div className="relative rounded-2xl border border-border/60 bg-card/80 backdrop-blur-xl shadow-elevated overflow-hidden">
@@ -124,9 +123,9 @@ const HeroSection = () => {
                     </div>
                     <div className="p-3 rounded-lg bg-primary/[0.03] border border-primary/10 space-y-1.5">
                       <p className="text-[11px] text-foreground/80 leading-relaxed">
-                        <span className="font-semibold text-foreground">82 commits</span> from 2 contributors across <span className="font-semibold text-foreground">21 merged PRs</span>. Major features delivered: team leader job flow, subscription handling, market selection, and reporting screens.
+                        <span className="font-semibold text-foreground">Your team shipped 29 items this week.</span> Here's what that means for your project.
                       </p>
-                      <p className="text-[10px] text-muted-foreground italic">Development activity increased steadily, peaking in week 4.</p>
+                      <p className="text-[10px] text-muted-foreground">ScrumAI read your codebase and translated it into the report below — no jargon, just the answers you need to manage your team.</p>
                     </div>
                   </div>
 
@@ -223,14 +222,76 @@ const HeroSection = () => {
                 </div>
               </div>
             </div>
+          </motion.div>
 
-            {/* ── Stakeholder Email Preview ── */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6, duration: 0.7, ease: "easeOut" }}
-              className="relative"
-            >
+          {/* Bottom Left — Ask ScrumAI Chat */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5, duration: 0.7, ease: "easeOut" }}
+            className="hidden lg:block"
+          >
+            <div className="relative rounded-2xl border border-border/60 bg-card/80 backdrop-blur-xl shadow-card overflow-hidden">
+              <div className="flex items-center gap-2 px-4 py-2.5 border-b border-border/50">
+                <MessageCircle className="w-3.5 h-3.5 text-primary" />
+                <span className="text-[10px] text-muted-foreground font-mono">Ask ScrumAI</span>
+              </div>
+
+              <div className="p-5 space-y-2.5">
+                {/* Chat messages */}
+                <div className="space-y-2">
+                  <div className="flex items-start gap-2 justify-end">
+                    <div className="py-1.5 px-2.5 rounded-lg bg-secondary/50 border border-border/30 max-w-[85%]">
+                      <p className="text-[11px] text-foreground/80">What should we prioritize next sprint?</p>
+                      <span className="text-[8px] text-muted-foreground">You · 10:32 AM</span>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <div className="w-5 h-5 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <Zap className="w-2.5 h-2.5 text-primary" />
+                    </div>
+                    <div className="py-1.5 px-2.5 rounded-lg bg-primary/[0.06] border border-primary/15 max-w-[85%]">
+                      <p className="text-[11px] text-foreground/80">Based on the codebase, I'd recommend: <span className="font-semibold">1)</span> Resolve the co-host API backend dependency — it's blocking frontend work. <span className="font-semibold">2)</span> Complete the reports dashboard. <span className="font-semibold">3)</span> Stabilize the auth module — high churn there raises regression risk.</p>
+                      <span className="text-[8px] text-muted-foreground">ScrumAI · 10:32 AM</span>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-2 justify-end">
+                    <div className="py-1.5 px-2.5 rounded-lg bg-secondary/50 border border-border/30 max-w-[85%]">
+                      <p className="text-[11px] text-foreground/80">Are we on track for the next release?</p>
+                      <span className="text-[8px] text-muted-foreground">You · 10:34 AM</span>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <div className="w-5 h-5 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <Zap className="w-2.5 h-2.5 text-primary" />
+                    </div>
+                    <div className="py-1.5 px-2.5 rounded-lg bg-primary/[0.06] border border-primary/15 max-w-[85%]">
+                      <p className="text-[11px] text-foreground/80">Velocity is trending up — 29 items last week vs. 10 in week one. Core features are near completion. The only risk is the co-host backend dependency. If resolved by Wednesday, you're on track.</p>
+                      <span className="text-[8px] text-muted-foreground">ScrumAI · 10:34 AM</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Chat input */}
+                <div className="flex items-center gap-2 pt-2">
+                  <div className="flex-1 flex items-center gap-2 px-3 py-1.5 rounded-lg bg-secondary/50 border border-border/40">
+                    <span className="text-[10px] text-muted-foreground">Ask ScrumAI about your project...</span>
+                  </div>
+                  <div className="w-7 h-7 rounded-lg bg-primary/20 border border-primary/30 flex items-center justify-center cursor-pointer hover:bg-primary/30 transition-colors">
+                    <Send className="w-3 h-3 text-primary" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Bottom Right — Stakeholder Email Preview */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.6, duration: 0.7, ease: "easeOut" }}
+            className="hidden lg:block"
+          >
               <div className="relative rounded-2xl border border-border/60 bg-card/80 backdrop-blur-xl shadow-card overflow-hidden">
                 {/* Email header bar */}
                 <div className="flex items-center gap-2 px-4 py-2.5 border-b border-border/50">
@@ -251,36 +312,115 @@ const HeroSection = () => {
                     </div>
                     <div className="flex items-center gap-2 text-[10px]">
                       <span className="text-muted-foreground">Subject:</span>
-                      <span className="text-foreground font-medium">RetailCorp platform — Apr 1 – Apr 30 feature report</span>
+                      <span className="text-foreground font-medium">ScrumAI — Weekly Progress Report · Apr 25 – May 1, 2026</span>
                     </div>
                   </div>
 
                   <div className="h-px bg-border/30" />
 
-                  {/* Email body — feature report */}
-                  <div className="space-y-2.5 text-[11px] text-foreground/75 leading-relaxed">
-                    <p className="font-medium text-foreground">Here's your feature report for Apr 1 – Apr 30, generated from your codebase.</p>
+                  {/* Email body — weekly report */}
+                  <div className="space-y-3 text-[11px] text-foreground/75 leading-relaxed max-h-[480px] overflow-y-auto pr-1">
+                    <p className="font-medium text-foreground">Here's your weekly status report:</p>
 
-                    <p><span className="font-semibold text-foreground">82 commits</span> from 2 contributors · <span className="font-semibold text-foreground">21 merged PRs</span> · 17,740 lines added</p>
+                    {/* Report title */}
+                    <div className="text-center py-2">
+                      <p className="font-bold text-foreground text-xs">ScrumAI — Weekly Progress Report</p>
+                      <p className="text-[10px] text-muted-foreground">Week of April 25 – May 1, 2026</p>
+                    </div>
 
-                    <div className="space-y-1.5">
-                      <p className="text-[9px] text-muted-foreground uppercase tracking-widest font-medium">Features delivered</p>
+                    <div className="h-px bg-border/30" />
+
+                    {/* What We Delivered */}
+                    <div className="space-y-2">
+                      <p className="text-[9px] text-muted-foreground uppercase tracking-widest font-medium">What We Delivered This Week</p>
+
                       {[
-                        "Team leader job flow",
-                        "Co-host management",
-                        "Password reset",
-                        "Subscription handling",
-                        "Market selection",
-                        "Reporting screens",
-                      ].map((feature, i) => (
-                        <div key={i} className="flex items-center gap-2 py-1 px-2.5 rounded-md bg-primary/[0.04] border border-primary/10">
-                          <CheckCircle className="w-3 h-3 text-primary flex-shrink-0" />
-                          <span className="text-[11px] text-foreground/80 font-medium">{feature}</span>
+                        { title: "Team Leader Onboarding — Market Selection", desc: "Team leaders can now select their service market during onboarding." },
+                        { title: "Cleaner Profile Tab", desc: "Cleaners now have a dedicated profile tab in the app." },
+                        { title: "Reports Dashboard (Started)", desc: "Added the first piece of the reporting interface — a reports card." },
+                        { title: "Push Notification Registration After Signup", desc: "New users are now automatically enrolled in push notifications right after they register." },
+                        { title: "Signup & Onboarding Quality Improvements", desc: "Added input validation across signup and team leader signup forms." },
+                        { title: "Co-Host & Team Leader Invitation Fixes", desc: "Fixed several issues in invitation flows — invitations now process reliably." },
+                      ].map((item, i) => (
+                        <div key={i} className="py-1.5 px-2.5 rounded-md bg-primary/[0.04] border border-primary/10">
+                          <div className="flex items-start gap-2">
+                            <CheckCircle className="w-3 h-3 text-primary flex-shrink-0 mt-0.5" />
+                            <div>
+                              <span className="text-[11px] text-foreground font-semibold">{item.title}</span>
+                              <p className="text-[10px] text-muted-foreground mt-0.5">{item.desc}</p>
+                            </div>
+                          </div>
                         </div>
                       ))}
                     </div>
 
-                    <p className="text-[10px] text-muted-foreground italic">Activity ramped up throughout the month, peaking at 29 commits in week 4.</p>
+                    <div className="h-px bg-border/30" />
+
+                    {/* Bugs & Stability Fixes */}
+                    <div className="space-y-1.5">
+                      <p className="text-[9px] text-muted-foreground uppercase tracking-widest font-medium">Bugs & Stability Fixes</p>
+                      {[
+                        { issue: "Images not reloading properly", impact: "Users can now see updated photos without force-closing" },
+                        { issue: "Broken links on signup page", impact: "New users no longer hit dead ends during registration" },
+                        { issue: "Deep link / Branch.io fix", impact: "Marketing links now open the correct screen" },
+                        { issue: "Scrolling issues", impact: "Improved usability on screens cutting off content" },
+                        { issue: "Subscription data handling", impact: "Subscription status now displays correctly" },
+                        { issue: "Cleaner navigation bar", impact: "Navigation works consistently" },
+                        { issue: "Logout reliability", impact: "Logout is now faster and more reliable" },
+                      ].map((bug, i) => (
+                        <div key={i} className="flex items-start gap-2 py-1 px-2.5 rounded-md bg-yellow-500/[0.04] border border-yellow-500/10">
+                          <span className="text-yellow-500 text-[10px] mt-0.5">✓</span>
+                          <div>
+                            <span className="text-[10px] text-foreground/80 font-medium">{bug.issue}</span>
+                            <span className="text-[10px] text-muted-foreground"> — {bug.impact}</span>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+
+                    <div className="h-px bg-border/30" />
+
+                    {/* By the Numbers */}
+                    <div className="space-y-1.5">
+                      <p className="text-[9px] text-muted-foreground uppercase tracking-widest font-medium">By the Numbers</p>
+                      <div className="grid grid-cols-2 gap-1.5">
+                        {[
+                          { label: "Work items completed", value: "29" },
+                          { label: "PRs merged & reviewed", value: "6" },
+                          { label: "Team members active", value: "2" },
+                          { label: "New features shipped", value: "5" },
+                          { label: "Bugs resolved", value: "7+" },
+                        ].map((metric, i) => (
+                          <div key={i} className="p-1.5 rounded-md bg-secondary/40 border border-border/30 text-center">
+                            <p className="text-xs font-bold font-mono text-primary">{metric.value}</p>
+                            <p className="text-[8px] text-muted-foreground">{metric.label}</p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className="h-px bg-border/30" />
+
+                    {/* Risks & Blockers */}
+                    <div className="space-y-1.5">
+                      <p className="text-[9px] text-muted-foreground uppercase tracking-widest font-medium">Risks & Blockers</p>
+                      <div className="flex items-start gap-2 py-1.5 px-2.5 rounded-lg bg-yellow-500/[0.05] border border-yellow-500/15">
+                        <span className="text-yellow-500 text-[10px] mt-0.5">⚠</span>
+                        <span className="text-[11px] text-foreground/80"><span className="font-semibold">Co-host API</span> is being prepared on the frontend but is dependent on a backend fix — coordination needed to unblock.</span>
+                      </div>
+                      <p className="text-[10px] text-muted-foreground px-2.5">No other blockers reported this week.</p>
+                    </div>
+
+                    <div className="h-px bg-border/30" />
+
+                    {/* Next Week Outlook */}
+                    <div className="space-y-1.5">
+                      <p className="text-[9px] text-muted-foreground uppercase tracking-widest font-medium">Next Week Outlook</p>
+                      <p className="text-[11px] text-foreground/80 px-2.5">
+                        The team closed April at peak velocity (29 commits in the final week vs. 10 in week one). The co-host features, reports, and team leader flows are approaching completion. Key areas to watch: co-host backend dependency resolution and continued stabilization before the next release.
+                      </p>
+                    </div>
+
                     <p className="text-muted-foreground italic text-[10px]">Next report arrives automatically. No action required.</p>
                   </div>
 
@@ -292,9 +432,8 @@ const HeroSection = () => {
                 </div>
               </div>
             </motion.div>
-          </motion.div>
+          </div>
         </div>
-      </div>
 
       {/* Bottom divider */}
       <div className="absolute bottom-0 left-0 right-0 section-divider" />

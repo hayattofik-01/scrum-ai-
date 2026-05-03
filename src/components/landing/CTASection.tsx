@@ -27,11 +27,11 @@ const CTASection = () => {
             </div>
 
             <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-6 leading-tight">
-              Your stakeholders{" "}
-              <span className="text-gradient">shouldn't have to ask.</span>
+              Stop guessing.{" "}
+              <span className="text-gradient">Start understanding.</span>
             </h2>
             <p className="text-lg text-muted-foreground mb-10">
-              Give them a clear, accurate update every sprint — automatically.
+              Get a report that actually tells you what your developers built, whether you're on track, and what needs your attention.
             </p>
           </motion.div>
 
@@ -62,7 +62,7 @@ const CTASection = () => {
             transition={{ delay: 0.4, duration: 0.5 }}
             className="text-xs text-muted-foreground"
           >
-            scrumai.tech · No credit card · First report in 20 minutes
+            scrumai.tech · No credit card required
           </motion.p>
         </div>
       </div>

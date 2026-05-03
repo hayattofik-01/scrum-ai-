@@ -4,23 +4,23 @@ import { HelpCircle, Clock, FileQuestion, Eye } from "lucide-react";
 const painPoints = [
   {
     icon: HelpCircle,
-    title: "\"Where do we stand?\"",
-    text: "Stakeholders ask for updates. You spend hours digging through GitHub, Slack, and standups to piece together an answer.",
+    title: "\"What are the developers doing?\"",
+    text: "You manage the team, but you can't read code. You rely on standups and Slack — and you still don't really know what's happening.",
   },
   {
     icon: Clock,
-    title: "Hours lost to reporting",
-    text: "Every week, someone on your team manually writes a progress report instead of doing actual work.",
+    title: "Updates that don't help",
+    text: "Your developers give you status updates full of technical jargon. You nod along, but you can't make decisions from them.",
   },
   {
     icon: FileQuestion,
-    title: "Reports nobody reads",
-    text: "When reports finally go out, they're too technical, too vague, or too late for stakeholders to care.",
+    title: "Managing blind",
+    text: "Are we on track? Is the team blocked? Is quality slipping? You shouldn't have to guess — but right now, you are.",
   },
   {
     icon: Eye,
-    title: "Great work, zero credit",
-    text: "Your team ships constantly — but stakeholders can't see it, so they assume nothing is happening.",
+    title: "The team is great — you just can't see it",
+    text: "Your developers are shipping real work every day. But without a clear report, you can't see progress, measure pace, or plan ahead.",
   },
 ];
 
@@ -39,10 +39,10 @@ const PainSection = () => {
           >
             <p className="text-xs font-mono uppercase tracking-widest text-primary mb-4">The Problem</p>
             <h2 className="font-display text-3xl sm:text-4xl font-bold text-foreground mb-4 leading-tight">
-              Your team ships every day. Your stakeholders have no idea.
+              You manage developers. But you don't speak code.
             </h2>
             <p className="text-lg text-muted-foreground leading-relaxed">
-              GitHub is where the work happens. But the people who pay for that work can't read GitHub.
+              The work lives in GitHub. The decisions live with you. And right now, there's no bridge between the two.
             </p>
           </motion.div>
 
@@ -80,9 +80,9 @@ const PainSection = () => {
           >
             <div className="absolute inset-0 bg-gradient-mesh opacity-50" />
             <div className="relative text-center">
-              <p className="text-muted-foreground text-sm mb-2">This isn't a delivery problem.</p>
+              <p className="text-muted-foreground text-sm mb-2">This isn't a developer problem.</p>
               <p className="text-xl sm:text-2xl font-display font-semibold text-foreground">
-                It's a <span className="text-gradient">reporting gap</span> — the work happens in GitHub, but stakeholders need it in plain English.
+                It's a <span className="text-gradient">visibility problem</span> — the work is happening, but you need it translated into language you can act on.
               </p>
             </div>
           </motion.div>

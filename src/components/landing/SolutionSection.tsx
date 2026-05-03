@@ -5,33 +5,33 @@ const steps = [
   {
     number: "01",
     icon: FileText,
-    title: "Upload your project spec",
-    description: "PRD, Notion doc, Jira export — any format. ScrumAI extracts your features and delivery commitments into a structured map.",
+    title: "Connect your GitHub repo",
+    description: "Read-only access. Takes 60 seconds. ScrumAI starts reading what your developers actually built — not ticket titles, the real work.",
   },
   {
     number: "02",
     icon: GitBranch,
-    title: "Connect your GitHub repo",
-    description: "Read-only access. Takes 60 seconds. ScrumAI starts reading what was genuinely built — not PR titles, the actual implementation.",
+    title: "ScrumAI reads the code for you",
+    description: "It analyses commits, pull requests, and code changes — and translates everything into plain English you can actually understand.",
   },
   {
     number: "03",
     icon: Users,
-    title: "Add your stakeholders",
-    description: "Client emails. Board emails. Anyone who needs to stay informed. They get added once — then ScrumAI handles every update from here.",
+    title: "You get a report that matters",
+    description: "What got done. What's at risk. Whether you're on track. No jargon, no guesswork — just the answers you need to manage your team.",
   },
   {
     number: "04",
     icon: Send,
-    title: "Reports go out automatically",
-    description: "Every sprint. Plain English. Delivered by email, visible on the dashboard. Your stakeholders are always informed. You do nothing.",
+    title: "Every sprint, automatically",
+    description: "Reports are delivered by email and live on your dashboard. You never have to ask your developers for an update again.",
   },
 ];
 
 const outcomes = [
-  "What got done this week?",
+  "What did the team actually build?",
   "Are we on track?",
-  "What needs attention?",
+  "What should I be worried about?",
 ];
 
 const SolutionSection = () => {
@@ -49,10 +49,10 @@ const SolutionSection = () => {
           >
             <p className="text-xs font-mono uppercase tracking-widest text-primary mb-4">How It Works</p>
             <h2 className="font-display text-3xl sm:text-4xl font-bold text-foreground mb-4 leading-tight">
-              Up and running in{" "}<span className="text-gradient">20 minutes.</span>
+              Understand your team{" "}<span className="text-gradient">clearly.</span>
             </h2>
             <p className="text-lg text-muted-foreground">
-              Four steps. Zero manual work. Your first report delivered the same day.
+              Four steps. No technical knowledge needed. Your first real report delivered the same day.
             </p>
           </motion.div>
 
@@ -95,7 +95,7 @@ const SolutionSection = () => {
             className="p-8 rounded-2xl border border-primary/20 bg-primary/[0.03] text-center"
           >
             <p className="text-sm text-muted-foreground mb-5">
-              Every report answers three questions your stakeholders care about:
+              Every report answers three questions managers actually care about:
             </p>
             <div className="flex flex-wrap justify-center gap-3 mb-6">
               {outcomes.map((outcome, index) => (
@@ -106,7 +106,7 @@ const SolutionSection = () => {
               ))}
             </div>
             <p className="text-lg font-display font-semibold text-foreground">
-              Automatic. Non-technical. <span className="text-gradient">Every week.</span>
+              Clear. Actionable. <span className="text-gradient">Every sprint.</span>
             </p>
           </motion.div>
         </div>

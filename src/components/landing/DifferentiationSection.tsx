@@ -5,32 +5,32 @@ const features = [
   {
     icon: FileText,
     title: "Reads the real code",
-    description: "Not ticket titles. Not PR names. ScrumAI analyses what was genuinely implemented — so what gets reported is what is true.",
+    description: "Not ticket titles. Not PR names. ScrumAI analyses what was genuinely built — so you know exactly what your developers delivered.",
   },
   {
     icon: Zap,
-    title: "Writes itself, sends itself",
-    description: "No manual input. The report is generated from your codebase and delivered to your stakeholders — every sprint, without you touching it.",
+    title: "Translates code into decisions",
+    description: "You don't need to understand code. ScrumAI turns technical work into the insights you need to manage, prioritize, and plan.",
   },
   {
     icon: Target,
     title: "Plain English, always",
-    description: "No story points. No GitHub links. No jargon. A report your client or board can read in two minutes and act on immediately.",
+    description: "No story points. No GitHub links. No jargon. A report you can read in two minutes and act on immediately.",
   },
   {
     icon: Mail,
-    title: "Email + dashboard",
-    description: "Stakeholders receive it by email automatically. Your team sees the live dashboard. Everyone always knows where things stand.",
+    title: "Delivered to you automatically",
+    description: "Reports arrive by email and live on your dashboard. You never have to chase developers for updates again.",
   },
   {
     icon: Search,
-    title: "Deadline visibility",
-    description: "A factual verdict on whether your project will hit the date — based on actual delivery pace, not gut feel or burndown charts.",
+    title: "See if you're on track",
+    description: "A clear verdict on whether your project will hit its deadline — based on what's actually been built, not what's been promised.",
   },
   {
     icon: Pencil,
-    title: "Custom for your team",
-    description: "Your clients ask specific questions every sprint. We configure ScrumAI to answer those questions — automatically, in your language.",
+    title: "Ask questions, get answers",
+    description: "Ask ScrumAI anything about your project — what to prioritize, where the risks are, what your team should focus on next.",
   },
 ];
 
@@ -49,11 +49,11 @@ const DifferentiationSection = () => {
           >
             <p className="text-xs font-mono uppercase tracking-widest text-primary mb-4">Why ScrumAI</p>
             <h2 className="font-display text-3xl sm:text-4xl font-bold text-foreground leading-tight">
-              Built for the gap between{" "}
-              <span className="text-gradient">engineering and everyone else.</span>
+              Built for managers who need to{" "}
+              <span className="text-gradient">understand their developers.</span>
             </h2>
             <p className="text-lg text-muted-foreground mt-4">
-              The people who fund your work rarely understand what's happening inside it. ScrumAI closes that gap.
+              You don't need to learn to read code. You need a tool that reads it for you and gives you what matters.
             </p>
           </motion.div>
 

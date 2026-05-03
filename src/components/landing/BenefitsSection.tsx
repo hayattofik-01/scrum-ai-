@@ -62,7 +62,7 @@ const BenefitsSection = () => {
                   <span className="text-4xl font-display font-bold text-foreground">£0</span>
                   <span className="text-muted-foreground">/ 14 days</span>
                 </div>
-                <p className="text-sm text-muted-foreground mb-6">Full access. One repo. First report delivered in 20 minutes. No credit card required.</p>
+                <p className="text-sm text-muted-foreground mb-6">Full access. One repo. No credit card required.</p>
                 <ul className="space-y-3 mb-8">
                   {pilotFeatures.map((feature, i) => (
                     <li key={i} className="flex items-center gap-2.5 text-sm text-foreground">

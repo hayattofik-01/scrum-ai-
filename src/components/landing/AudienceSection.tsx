@@ -24,7 +24,7 @@ const AudienceSection = () => {
             transition={{ duration: 0.6 }}
             className="text-center mb-12"
           >
-            <p className="text-xs font-mono uppercase tracking-widest text-muted-foreground mb-6">Trusted by engineering teams at</p>
+            <p className="text-xs font-mono uppercase tracking-widest text-muted-foreground mb-6">Built for managers at</p>
           </motion.div>
 
           {/* Audience badges */}
@@ -56,12 +56,12 @@ const AudienceSection = () => {
               <div className="absolute inset-0 bg-gradient-mesh opacity-30" />
               <div className="relative">
                 <p className="text-lg sm:text-xl text-foreground leading-relaxed italic mb-6">
-                  "My clients used to email me every week asking for updates. Now they get a report before they think to ask. The chasing stopped completely."
+                  "I used to sit in standups and nod along without really understanding what got done. Now I open my report and I actually know where we stand. I can make real decisions."
                 </p>
                 <div className="text-sm text-muted-foreground">
-                  <span className="font-medium text-foreground/80">Engineering Manager</span>
+                  <span className="font-medium text-foreground/80">Product Manager</span>
                   <span className="mx-2">·</span>
-                  <span>London agency</span>
+                  <span>London startup</span>
                   <span className="mx-2">·</span>
                   <span className="text-primary">pilot customer</span>
                 </div>

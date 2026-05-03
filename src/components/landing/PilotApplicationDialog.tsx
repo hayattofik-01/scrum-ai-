@@ -103,7 +103,7 @@ const PilotApplicationDialog = ({ children }: PilotApplicationDialogProps) => {
           </div>
           <DialogTitle className="font-display text-2xl">Start your free pilot</DialogTitle>
           <DialogDescription>
-            Connect one GitHub repo and get your first plain-English delivery report in 20 minutes. No credit card required.
+            Connect one GitHub repo and get your first plain-English delivery report. No credit card required.
           </DialogDescription>
         </DialogHeader>
 
