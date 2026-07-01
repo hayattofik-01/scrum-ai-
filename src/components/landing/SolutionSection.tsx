@@ -1,37 +1,37 @@
 import { motion } from "framer-motion";
-import { FileText, GitBranch, Users, Send, CheckCircle } from "lucide-react";
+import { Video, Bot, Columns3, Mail, CheckCircle } from "lucide-react";
 
 const steps = [
   {
     number: "01",
-    icon: FileText,
-    title: "Connect your GitHub repo",
-    description: "Read-only access. Takes 60 seconds. ScrumAI starts reading what your developers actually built — not ticket titles, the real work.",
+    icon: Video,
+    title: "Connect your calendar",
+    description: "Link Google Meet, Zoom, or Teams. ScrumAI's agent automatically joins your standups, planning, and review meetings.",
   },
   {
     number: "02",
-    icon: GitBranch,
-    title: "ScrumAI reads the code for you",
-    description: "It analyses commits, pull requests, and code changes — and translates everything into plain English you can actually understand.",
+    icon: Bot,
+    title: "AI listens and understands",
+    description: "Real-time transcription with AI analysis. It detects ticket updates, new commitments, assignments, and deadlines from what's said.",
   },
   {
     number: "03",
-    icon: Users,
-    title: "You get a report that matters",
-    description: "What got done. What's at risk. Whether you're on track. No jargon, no guesswork — just the answers you need to manage your team.",
+    icon: Columns3,
+    title: "Board updates itself",
+    description: "Tickets move automatically. 'The API is done' \u2192 ticket moves to Done. 'I'll start payments tomorrow' \u2192 ticket assigned and scheduled.",
   },
   {
     number: "04",
-    icon: Send,
-    title: "Every sprint, automatically",
-    description: "Reports are delivered by email and live on your dashboard. You never have to ask your developers for an update again.",
+    icon: Mail,
+    title: "Follow-ups and alerts",
+    description: "Missed a deadline? Forgot a commitment from last meeting? The agent emails the right people and brings it up in the next meeting.",
   },
 ];
 
 const outcomes = [
-  "What did the team actually build?",
-  "Are we on track?",
-  "What should I be worried about?",
+  "Tickets move without manual updates",
+  "Commitments are tracked across meetings",
+  "Stakeholders get emailed when things need attention",
 ];
 
 const SolutionSection = () => {
@@ -49,10 +49,10 @@ const SolutionSection = () => {
           >
             <p className="text-xs font-mono uppercase tracking-widest text-primary mb-4">How It Works</p>
             <h2 className="font-display text-3xl sm:text-4xl font-bold text-foreground mb-4 leading-tight">
-              Understand your team{" "}<span className="text-gradient">clearly.</span>
+              From meeting to{" "}<span className="text-gradient">board update.</span> Automatically.
             </h2>
             <p className="text-lg text-muted-foreground">
-              Four steps. No technical knowledge needed. Your first real report delivered the same day.
+              Four steps. No manual ticket management. Your board stays in sync with every conversation.
             </p>
           </motion.div>
 
@@ -95,7 +95,7 @@ const SolutionSection = () => {
             className="p-8 rounded-2xl border border-primary/20 bg-primary/[0.03] text-center"
           >
             <p className="text-sm text-muted-foreground mb-5">
-              Every report answers three questions managers actually care about:
+              Every meeting produces real results:
             </p>
             <div className="flex flex-wrap justify-center gap-3 mb-6">
               {outcomes.map((outcome, index) => (
@@ -106,7 +106,7 @@ const SolutionSection = () => {
               ))}
             </div>
             <p className="text-lg font-display font-semibold text-foreground">
-              Clear. Actionable. <span className="text-gradient">Every sprint.</span>
+              Meetings drive the board. <span className="text-gradient">Automatically.</span>
             </p>
           </motion.div>
         </div>

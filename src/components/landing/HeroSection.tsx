@@ -36,13 +36,13 @@ const HeroSection = () => {
             >
               <GitBranch className="w-3.5 h-3.5 text-primary" />
               <span className="text-xs font-medium text-primary">
-                Now in pilot · 7 spots remaining
+                AI-powered meeting agent · Now in pilot
               </span>
             </motion.div>
 
             <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.1] mb-6">
-              Finally understand{" "}
-              <span className="text-gradient">what your developers are building.</span>
+              Your Jira board{" "}
+              <span className="text-gradient">manages itself.</span>
             </h1>
 
             <motion.p
@@ -51,7 +51,7 @@ const HeroSection = () => {
               transition={{ delay: 0.3, duration: 0.6 }}
               className="text-lg text-muted-foreground max-w-lg mb-10 leading-relaxed"
             >
-              ScrumAI reads your codebase and gives you a report that actually matters — plain English, no jargon, so you can manage your team with clarity instead of guesswork.
+              ScrumAI joins your meetings, listens to what's said, and moves tickets automatically. It remembers past commitments, follows up on forgotten items, and emails stakeholders when something needs attention.
             </motion.p>
 
             {/* CTA Buttons */}

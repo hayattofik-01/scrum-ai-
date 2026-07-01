@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 import PilotApplicationDialog from "./PilotApplicationDialog";
 import ContactDialog from "./ContactDialog";
 import { ThemeToggle } from "@/components/ThemeToggle";
@@ -23,6 +24,11 @@ const Navbar = () => {
             </span>
           </div>
           <div className="flex items-center gap-2">
+            <Link to="/app">
+              <Button variant="ghost" size="sm" className="hidden sm:inline-flex text-muted-foreground hover:text-foreground">
+                Open App
+              </Button>
+            </Link>
             <ContactDialog>
               <Button variant="ghost" size="sm" className="hidden sm:inline-flex text-muted-foreground hover:text-foreground">
                 Book a Demo
