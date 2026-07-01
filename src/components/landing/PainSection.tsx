@@ -4,23 +4,23 @@ import { HelpCircle, Clock, FileQuestion, Eye } from "lucide-react";
 const painPoints = [
   {
     icon: HelpCircle,
-    title: "\"What are the developers doing?\"",
-    text: "You manage the team, but you can't read code. You rely on standups and Slack — and you still don't really know what's happening.",
+    title: "Meetings end, nothing moves",
+    text: "Your team makes decisions in standups and planning meetings. But someone still has to manually update the Jira board afterwards — and half the time, nobody does.",
   },
   {
     icon: Clock,
-    title: "Updates that don't help",
-    text: "Your developers give you status updates full of technical jargon. You nod along, but you can't make decisions from them.",
+    title: "Forgotten commitments",
+    text: "\"I'll finish this by Thursday.\" But Thursday comes and goes, and nobody follows up. Promises made in meetings disappear into the void.",
   },
   {
     icon: FileQuestion,
-    title: "Managing blind",
-    text: "Are we on track? Is the team blocked? Is quality slipping? You shouldn't have to guess — but right now, you are.",
+    title: "No meeting memory",
+    text: "Each meeting starts from scratch. Nobody remembers what was agreed last time. Action items from two standups ago? Lost.",
   },
   {
     icon: Eye,
-    title: "The team is great — you just can't see it",
-    text: "Your developers are shipping real work every day. But without a clear report, you can't see progress, measure pace, or plan ahead.",
+    title: "Stakeholders are in the dark",
+    text: "When something is at risk or a deadline is missed, the people who need to know — PMs, CTOs, clients — find out too late.",
   },
 ];
 
@@ -39,10 +39,10 @@ const PainSection = () => {
           >
             <p className="text-xs font-mono uppercase tracking-widest text-primary mb-4">The Problem</p>
             <h2 className="font-display text-3xl sm:text-4xl font-bold text-foreground mb-4 leading-tight">
-              You manage developers. But you don't speak code.
+              Meetings are where decisions happen. Your board doesn't know that.
             </h2>
             <p className="text-lg text-muted-foreground leading-relaxed">
-              The work lives in GitHub. The decisions live with you. And right now, there's no bridge between the two.
+              Your team talks about progress, makes commitments, and shifts priorities in meetings every day. But none of that reaches the board unless someone manually updates it.
             </p>
           </motion.div>
 
@@ -80,9 +80,9 @@ const PainSection = () => {
           >
             <div className="absolute inset-0 bg-gradient-mesh opacity-50" />
             <div className="relative text-center">
-              <p className="text-muted-foreground text-sm mb-2">This isn't a developer problem.</p>
+              <p className="text-muted-foreground text-sm mb-2">This isn't a process problem.</p>
               <p className="text-xl sm:text-2xl font-display font-semibold text-foreground">
-                It's a <span className="text-gradient">visibility problem</span> — the work is happening, but you need it translated into language you can act on.
+                It's an <span className="text-gradient">automation problem</span> — the decisions happen in meetings, but nobody bridges them to the board.
               </p>
             </div>
           </motion.div>
